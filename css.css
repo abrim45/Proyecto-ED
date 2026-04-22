@@ -1,0 +1,54 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.slot-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.slot-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.btn {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: transparent;
+}
+
+#btn-ajustes {
+  top: 76.5%;
+  left: 12%;
+  width: 9%;
+  height: 10%;
+}
+
+#btn-tienda {
+  top: 76.5%;
+  left: 75%;
+  width: 10%;
+  height: 10%;
+}
+
+#btn-tirar {
+  top: 76.5%;
+  left: 43%;
+  width: 14%;
+  height: 10%;
+}
