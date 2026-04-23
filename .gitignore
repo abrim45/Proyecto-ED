@@ -1,0 +1,36 @@
+# ============================================
+# .gitignore — Casino Clicker
+# ============================================
+# Temario UD4 - Sección 2.2.1 GitIgnore:
+# Fichero en la raíz del working directory que
+# indica a Git qué archivos/directorios ignorar.
+# ============================================
+
+# --- Archivos del sistema operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Dependencias ---
+node_modules/
+
+# --- IDEs y editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Archivos temporales ---
+*.tmp
+*.log
+*.bak
+
+# --- Archivos compilados/generados ---
+dist/
+build/
+*.min.js
+*.min.css
+
+# --- Documentación generada ---
+docs/output/

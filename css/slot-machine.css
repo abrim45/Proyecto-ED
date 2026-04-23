@@ -1,0 +1,49 @@
+/**
+ * Estilos de los rodillos — Casino Clicker (Vintage)
+ * Los rodillos se posicionan sobre la imagen SLOT.png.
+ *
+ * @author Paco, Majemami, Polanco, Abraham
+ * @version 2.0
+ * @since 2026-04-22
+ */
+
+/* ── Ventana de cada rodillo ───────────────────────────────── */
+.rodillo-ventana {
+    flex: 1;
+    height: 100%;
+    background: rgba(220, 210, 185, 0.12);
+    border-radius: var(--radio-sm);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Sombra interna tipo cristal oscuro */
+.rodillo-ventana::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0) 75%,
+        rgba(0, 0, 0, 0.35) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ── Símbolos ──────────────────────────────────────────────── */
+.simbolo {
+    width: 100%;
+    height: var(--size);
+    font-size: var(--font-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
+}

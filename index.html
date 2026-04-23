@@ -3,27 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LA SOÑADORA</title>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #000;
-      }
+    <meta name="description" content="Casino Clicker - Un juego incremental con máquina tragaperras vintage." />
+    <title>Casino Clicker — Dopamina Edition 🎰</title>
 
-      img {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        display: block;
-      }
-    </style>
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/slot-machine.css" />
+    <link rel="stylesheet" href="css/effects.css" />
   </head>
   <body>
-    <img src="SLOT.png" alt="Máquina tragaperras de fondo" />
+
+    <!-- ════════════════════════════════════════════════════ -->
+    <!-- CONTENIDO PRINCIPAL — La máquina tragaperras        -->
+    <!-- ════════════════════════════════════════════════════ -->
+    <main class="contenedor-juego">
+
+      <!-- Máquina tragaperras con imagen de fondo -->
+      <div class="maquina-wrapper" id="maquina-wrapper">
+
+        <!-- Imagen de fondo de la máquina -->
+        <img src="SLOT.png" alt="Máquina tragaperras" class="maquina-fondo" draggable="false" />
+
+        <!-- PANTALLA LCD superior — muestra monedas y resultado -->
+        <div class="lcd-pantalla" id="lcd-pantalla">
+          <div class="lcd-contenido">
+            <span class="lcd-monedas" id="display-monedas">100</span>
+            <span class="lcd-separador">🪙</span>
+          </div>
+          <div class="lcd-resultado" id="resultado-tirada"></div>
+        </div>
+
+        <!-- 3 RODILLOS posicionados sobre la imagen -->
+        <div class="rodillos-overlay">
+          <div class="rodillo-ventana">
+            <div class="tira-simbolos" id="rodillo1"></div>
+          </div>
+          <div class="rodillo-ventana">
+            <div class="tira-simbolos" id="rodillo2"></div>
+          </div>
+          <div class="rodillo-ventana">
+            <div class="tira-simbolos" id="rodillo3"></div>
+          </div>
+        </div>
+
+        <!-- BOTONES posicionados sobre la imagen -->
+        <div class="botones-overlay">
+          <!-- Botón amarillo izquierdo: bajar apuesta -->
+          <button id="btn-bajar-apuesta" class="btn-maquina btn-amarillo" aria-label="Bajar apuesta">
+            <span class="btn-maquina-texto">−</span>
+          </button>
+          <!-- Botón amarillo derecho: subir apuesta -->
+          <button id="btn-subir-apuesta" class="btn-maquina btn-amarillo" aria-label="Subir apuesta">
+            <span class="btn-maquina-texto">+</span>
+          </button>
+          <!-- Botón rojo: TIRAR -->
+          <button id="btn-girar" class="btn-maquina btn-rojo" aria-label="Tirar">
+            <span class="btn-maquina-texto">PULL</span>
+          </button>
+        </div>
+
+        <!-- Display de apuesta (entre los botones amarillos) -->
+        <div class="apuesta-overlay" id="apuesta-overlay">
+          <span class="apuesta-label">BET</span>
+          <span class="apuesta-valor" id="display-apuesta">10</span>
+        </div>
+
+      </div>
+
+      <!-- PANEL INFERIOR — Stats y controles extra -->
+      <div class="panel-inferior" id="panel-inferior">
+        <div class="stats-bar">
+          <div class="stat-item">
+            <span class="stat-label">TIRADAS</span>
+            <span class="stat-valor" id="display-tiradas">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">RACHA</span>
+            <span class="stat-valor" id="display-racha">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">POR SEG</span>
+            <span class="stat-valor" id="display-mps">0</span>
+          </div>
+          <div class="stat-item stat-reset">
+            <button id="btn-reset" class="btn-reset" title="Reiniciar partida">🔄</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje genérico del juego -->
+      <div id="mensaje-juego" class="mensaje" aria-live="polite"></div>
+
+    </main>
+
+    <!-- SCRIPTS (orden importa: dependencias primero) -->
+    <script src="js/storage.js"></script>
+    <script src="js/economy.js"></script>
+    <script src="js/slotMachine.js"></script>
+    <script src="js/gameManager.js"></script>
   </body>
 </html>

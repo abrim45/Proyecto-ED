@@ -1,0 +1,136 @@
+/**
+ * Animaciones y efectos visuales — Casino Clicker
+ *
+ * @author Paco, Majemami, Polanco, Abraham
+ * @version 1.0
+ * @since 2026-04-22
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMACIONES @keyframes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Palpitar del título (neón) */
+@keyframes palpitar-neon {
+    from {
+        filter: drop-shadow(0 0 0.5rem rgba(255, 215, 0, 0.3));
+    }
+    to {
+        filter: drop-shadow(0 0 1.5rem rgba(255, 215, 0, 0.6));
+    }
+}
+
+/* Respiración del botón */
+@keyframes respirar-boton {
+    0%   { transform: scale(1); }
+    100% { transform: scale(1.04); }
+}
+
+/* Brillo que recorre el botón */
+@keyframes brillo-boton {
+    0%   { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Fade in/out para resultados y mensajes */
+@keyframes fadeInOut {
+    0%   { opacity: 0; transform: translateY(-10px); }
+    15%  { opacity: 1; transform: translateY(0); }
+    85%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(5px); }
+}
+
+/* Sacudida de pantalla cuando ganas */
+@keyframes sacudir {
+    0%, 100% { transform: translateX(0); }
+    10%      { transform: translateX(-5px) rotate(-0.5deg); }
+    20%      { transform: translateX(5px) rotate(0.5deg); }
+    30%      { transform: translateX(-4px); }
+    40%      { transform: translateX(4px); }
+    50%      { transform: translateX(-2px); }
+    60%      { transform: translateX(2px); }
+    70%      { transform: translateX(0); }
+}
+
+/* Pulso de monedas al ganar */
+@keyframes pulso-monedas {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.3); color: #fff; }
+    100% { transform: scale(1); }
+}
+
+/* Partícula flotante */
+@keyframes flotar-particula {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+    }
+}
+
+/* Gradiente animado de fondo */
+@keyframes gradiente-fondo {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CLASES DE UTILIDAD PARA ANIMACIONES
+   ═══════════════════════════════════════════════════════════════ */
+
+.animar-sacudir {
+    animation: sacudir 0.6s ease;
+}
+
+.animar-pulso {
+    animation: pulso-monedas 0.5s ease;
+}
+
+.animar-neon {
+    animation: palpitar-neon 1.5s infinite alternate;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   EFECTO GLASSMORPHISM (para paneles)
+   ═══════════════════════════════════════════════════════════════ */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR PERSONALIZADA
+   ═══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radio-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SELECCIÓN DE TEXTO
+   ═══════════════════════════════════════════════════════════════ */
+::selection {
+    background: rgba(255, 0, 204, 0.3);
+    color: white;
+}
