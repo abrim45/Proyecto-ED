@@ -6,128 +6,139 @@
     <meta name="description" content="Casino Clicker - Un juego incremental con máquina tragaperras vintage." />
     <title>Casino Clicker — Dopamina Edition 🎰</title>
 
-    <!-- Tipografías -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
 
-    <!-- Estilos -->
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/slot-machine.css" />
     <link rel="stylesheet" href="css/shop.css" />
     <link rel="stylesheet" href="css/effects.css" />
   </head>
-  <body>
+  <body class="escenario-callejon">
 
-    <main class="contenedor-juego">
-
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- LA MÁQUINA — Construida 100% con CSS           -->
-      <!-- ═══════════════════════════════════════════════ -->
-      <div class="maquina" id="maquina-principal">
-
-        <!-- Bordes laterales oxidados -->
-        <div class="maquina-borde-izq"></div>
-        <div class="maquina-borde-der"></div>
-
-        <!-- ZONA SUPERIOR: Pantalla LCD -->
-        <div class="maquina-superior">
-          <div class="medidor">
-            <div class="medidor-barra" id="medidor-barra"></div>
-          </div>
-          <div class="lcd" id="lcd-pantalla">
-            <div class="lcd-cristal"></div>
-            <div class="lcd-contenido">
-              <span class="lcd-monedas" id="display-monedas">100</span>
-              <span class="lcd-icono">🪙</span>
-            </div>
-            <div class="lcd-resultado" id="resultado-tirada"></div>
-          </div>
-        </div>
-
-        <!-- ZONA CENTRAL: 3 Rodillos -->
-        <div class="maquina-centro">
-          <div class="rodillo-marco">
-            <div class="rodillo-ventana">
-              <div class="tira-simbolos" id="rodillo1"></div>
-            </div>
-          </div>
-          <div class="rodillo-marco">
-            <div class="rodillo-ventana">
-              <div class="tira-simbolos" id="rodillo2"></div>
-            </div>
-          </div>
-          <div class="rodillo-marco">
-            <div class="rodillo-ventana">
-              <div class="tira-simbolos" id="rodillo3"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ZONA INFERIOR: Base metálica con botones -->
-        <div class="maquina-base">
-          <div class="base-botones">
-            <button id="btn-bajar-apuesta" class="btn-fisico btn-amarillo" aria-label="Bajar apuesta">
-              <span class="btn-fisico-cara">−</span>
-            </button>
-            <button id="btn-subir-apuesta" class="btn-fisico btn-amarillo" aria-label="Subir apuesta">
-              <span class="btn-fisico-cara">+</span>
-            </button>
-            <button id="btn-girar" class="btn-fisico btn-rojo" aria-label="Tirar la máquina">
-              <span class="btn-fisico-cara">PULL</span>
-            </button>
-          </div>
-          <div class="base-apuesta">
-            <span class="apuesta-label">BET</span>
-            <span class="apuesta-valor" id="display-apuesta">10</span>
-          </div>
-          <div class="cable cable-1"></div>
-          <div class="cable cable-2"></div>
-        </div>
-
-      </div>
-
-      <!-- PANEL STATS -->
-      <div class="panel-stats" id="panel-stats">
-        <div class="stat-item">
-          <span class="stat-label">TIRADAS</span>
-          <span class="stat-valor" id="display-tiradas">0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">RACHA</span>
-          <span class="stat-valor" id="display-racha">0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">POR SEG</span>
-          <span class="stat-valor" id="display-mps">0</span>
-        </div>
-        <div class="stat-item">
-          <button id="btn-reset" class="btn-reset" title="Reiniciar partida">🔄</button>
+    <!-- ═══ BARRA SUPERIOR: Nivel + Monedas ═══ -->
+    <header class="barra-superior" id="barra-superior">
+      <div class="barra-izq">
+        <span class="nivel-badge" id="display-nivel">Nv.1</span>
+        <div class="xp-barra-wrap">
+          <div class="xp-barra" id="xp-barra"></div>
         </div>
       </div>
-
-      <!-- ═══════════════════════════════════════════════ -->
-      <!-- TIENDA DE MEJORAS                              -->
-      <!-- ═══════════════════════════════════════════════ -->
-      <div class="panel-tienda" id="panel-tienda">
-        <div class="tienda-header" id="tienda-header">
-          <span class="tienda-titulo">🛒 TIENDA DE MEJORAS</span>
-          <span class="tienda-toggle abierta" id="tienda-toggle">▼</span>
-        </div>
-        <div class="tienda-items" id="tienda-items">
-          <!-- Los items se renderizan dinámicamente desde shop.js -->
-        </div>
+      <div class="barra-centro">
+        <span class="escenario-nombre" id="display-escenario">🗑️ Callejón Oscuro</span>
       </div>
+      <div class="barra-der">
+        <span class="monedas-display" id="display-monedas">100</span>
+        <span class="monedas-icono">🪙</span>
+        <span class="mps-display" id="display-mps">0/s</span>
+      </div>
+    </header>
 
-      <!-- Mensaje del juego -->
-      <div id="mensaje-juego" class="mensaje" aria-live="polite"></div>
+    <!-- ═══ LAYOUT PRINCIPAL: Máquina + Tienda ═══ -->
+    <main class="layout-principal">
+
+      <!-- COLUMNA IZQUIERDA: La máquina -->
+      <section class="col-maquina">
+        <div class="maquina" id="maquina-principal">
+
+          <div class="maquina-borde-izq"></div>
+          <div class="maquina-borde-der"></div>
+
+          <!-- Pantalla LCD -->
+          <div class="maquina-superior">
+            <div class="medidor">
+              <div class="medidor-barra" id="medidor-barra"></div>
+            </div>
+            <div class="lcd" id="lcd-pantalla">
+              <div class="lcd-cristal"></div>
+              <div class="lcd-contenido">
+                <span class="lcd-monedas" id="display-lcd-monedas">100</span>
+                <span class="lcd-icono">🪙</span>
+              </div>
+              <div class="lcd-resultado" id="resultado-tirada"></div>
+            </div>
+          </div>
+
+          <!-- 3 Rodillos -->
+          <div class="maquina-centro">
+            <div class="rodillo-marco">
+              <div class="rodillo-ventana">
+                <div class="tira-simbolos" id="rodillo1"></div>
+              </div>
+            </div>
+            <div class="rodillo-marco">
+              <div class="rodillo-ventana">
+                <div class="tira-simbolos" id="rodillo2"></div>
+              </div>
+            </div>
+            <div class="rodillo-marco">
+              <div class="rodillo-ventana">
+                <div class="tira-simbolos" id="rodillo3"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Base con botones -->
+          <div class="maquina-base">
+            <div class="base-botones">
+              <button id="btn-bajar-apuesta" class="btn-fisico btn-amarillo" aria-label="Bajar apuesta">
+                <span class="btn-fisico-cara">−</span>
+              </button>
+              <button id="btn-subir-apuesta" class="btn-fisico btn-amarillo" aria-label="Subir apuesta">
+                <span class="btn-fisico-cara">+</span>
+              </button>
+              <button id="btn-girar" class="btn-fisico btn-rojo" aria-label="Tirar">
+                <span class="btn-fisico-cara">PULL</span>
+              </button>
+            </div>
+            <div class="base-apuesta">
+              <span class="apuesta-label">BET</span>
+              <span class="apuesta-valor" id="display-apuesta">10</span>
+            </div>
+            <div class="cable cable-1"></div>
+            <div class="cable cable-2"></div>
+          </div>
+        </div>
+
+        <!-- Stats bajo la máquina -->
+        <div class="panel-stats">
+          <div class="stat-item">
+            <span class="stat-label">TIRADAS</span>
+            <span class="stat-valor" id="display-tiradas">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">RACHA</span>
+            <span class="stat-valor" id="display-racha">0</span>
+          </div>
+          <div class="stat-item">
+            <button id="btn-reset" class="btn-reset" title="Reiniciar">🔄</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUMNA DERECHA: Tienda -->
+      <aside class="col-tienda">
+        <div class="panel-tienda" id="panel-tienda">
+          <div class="tienda-header" id="tienda-header">
+            <span class="tienda-titulo">🛒 MEJORAS</span>
+            <span class="tienda-toggle abierta" id="tienda-toggle">▼</span>
+          </div>
+          <div class="tienda-items" id="tienda-items"></div>
+        </div>
+      </aside>
 
     </main>
 
-    <!-- Scripts (orden de dependencias) -->
+    <!-- Mensajes -->
+    <div id="mensaje-juego" class="mensaje" aria-live="polite"></div>
+    <div id="notificacion-nivel" class="notificacion-nivel" aria-live="polite"></div>
+
+    <!-- Scripts -->
     <script src="js/storage.js"></script>
     <script src="js/economy.js"></script>
     <script src="js/slotMachine.js"></script>
+    <script src="js/levels.js"></script>
     <script src="js/shop.js"></script>
     <script src="js/gameManager.js"></script>
   </body>

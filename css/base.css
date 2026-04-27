@@ -1,598 +1,372 @@
 /**
- * Sistema de diseño — Casino Clicker (Vintage/Oxidado)
- * Toda la estética recrea SLOT.png con CSS puro, sin imágenes.
- *
- * @author Paco, Majemami, Polanco, Abraham
- * @version 3.0
- * @since 2026-04-22
+ * Base CSS — Casino Clicker (Fullscreen + Escenarios)
+ * @version 4.0
  */
 
-/* ═══════════════════════════════════════════════════════════════
-   VARIABLES CSS — Introduce Variable (4.3.E.a)
-   ═══════════════════════════════════════════════════════════════ */
 :root {
-    /* ── Colores de la máquina ─────────────────────────────── */
-    --oxido-1:       #b8923a;
-    --oxido-2:       #8b6914;
-    --oxido-3:       #6b4c1e;
-    --oxido-4:       #4a3312;
-    --oxido-5:       #2e1f0a;
-    --oxido-mancha:  #5c3d10;
-
-    --metal-claro:   #8a8578;
-    --metal:         #6b6660;
-    --metal-oscuro:  #4a4540;
-    --metal-base:    #7a756c;
-
-    --marco-rodillo: #3a2a14;
-    --marco-rodillo-claro: #5a4428;
-
-    --lcd-fondo:     #1a3830;
-    --lcd-cristal:   #1e4a3e;
-    --lcd-texto:     #33ff66;
-    --lcd-brillo:    #66ffaa;
-    --lcd-marco:     #2e2218;
-
-    --btn-amarillo-claro: #d4b442;
-    --btn-amarillo:       #b89a30;
-    --btn-amarillo-oscuro:#8a7220;
-    --btn-amarillo-sombra:#5c4a10;
-
-    --btn-rojo-claro:     #a84444;
-    --btn-rojo:           #8b3a3a;
-    --btn-rojo-oscuro:    #6a2828;
-    --btn-rojo-sombra:    #3a1515;
-
-    --color-oro:     #ffd700;
-    --color-exito:   #44ff88;
-    --color-error:   #ff4444;
-    --color-texto:   #d4c8a0;
+    --color-fondo: #0e0a06;
+    --fondo-grad: radial-gradient(ellipse at 50% 40%, rgba(40,25,8,0.5) 0%, transparent 70%);
+    --maquina-primario: #6b4c1e;
+    --maquina-secundario: #4a3312;
+    --maquina-borde: #2e1f0a;
+    --lcd-fondo: #0e2a1e;
+    --lcd-texto: #22cc44;
+    --lcd-brillo: #66ffaa;
+    --color-oro: #ffd700;
+    --color-exito: #44ff88;
+    --color-error: #ff4444;
+    --color-texto: #d4c8a0;
     --color-texto-dim: #8a7e5a;
-
-    /* ── Tipografía ────────────────────────────────────────── */
     --fuente-display: "Press Start 2P", monospace;
-    --fuente-titulo:  "Righteous", cursive;
-    --fuente-cuerpo:  "Outfit", sans-serif;
-
-    /* ── Tamaño de los rodillos ────────────────────────────── */
-    --size: clamp(70px, 12vw, 130px);
+    --fuente-titulo: "Righteous", cursive;
+    --fuente-cuerpo: "Outfit", sans-serif;
+    --size: clamp(60px, 10vw, 120px);
     --font-size: calc(var(--size) * 0.55);
 }
 
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESET + BODY
-   ═══════════════════════════════════════════════════════════════ */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+html, body { height:100%; overflow:hidden; }
 
 body {
     font-family: var(--fuente-cuerpo);
-    background: #1a1610;
-    background-image:
-        radial-gradient(ellipse at 50% 30%, rgba(60, 40, 15, 0.4) 0%, transparent 70%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-}
-
-.contenedor-juego {
+    background: var(--color-fondo);
+    background-image: var(--fondo-grad);
+    color: var(--color-texto);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 1rem;
+    transition: background 1.5s ease;
 }
 
-
-/* ═══════════════════════════════════════════════════════════════
-   LA MÁQUINA — Cuerpo principal
-   ═══════════════════════════════════════════════════════════════ */
-.maquina {
-    position: relative;
-    width: clamp(340px, 70vw, 650px);
-    background:
-        /* Textura grunge con gradientes superpuestos */
-        radial-gradient(ellipse at 30% 20%, rgba(184, 146, 58, 0.6) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 60%, rgba(139, 105, 20, 0.4) 0%, transparent 40%),
-        radial-gradient(ellipse at 20% 80%, rgba(92, 61, 16, 0.5) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 30%, rgba(107, 76, 30, 0.5) 0%, transparent 45%),
-        linear-gradient(180deg, var(--oxido-2) 0%, var(--oxido-3) 40%, var(--oxido-4) 100%);
-    border-radius: 12px;
-    border: 4px solid var(--oxido-5);
-    box-shadow:
-        inset 0 0 30px rgba(0, 0, 0, 0.5),
-        inset 0 2px 0 rgba(255, 255, 255, 0.05),
-        0 8px 32px rgba(0, 0, 0, 0.7),
-        0 2px 0 var(--oxido-5);
-    overflow: hidden;
+/* ═══ BARRA SUPERIOR ═══ */
+.barra-superior {
     display: flex;
-    flex-direction: column;
-}
-
-/* ── Efecto de manchas de óxido sobre toda la máquina ────── */
-.maquina::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 10% 15%, rgba(92, 50, 10, 0.6) 0%, transparent 15%),
-        radial-gradient(circle at 85% 10%, rgba(80, 45, 8, 0.5) 0%, transparent 12%),
-        radial-gradient(circle at 5% 50%, rgba(60, 35, 5, 0.5) 0%, transparent 18%),
-        radial-gradient(circle at 90% 55%, rgba(70, 40, 8, 0.5) 0%, transparent 14%),
-        radial-gradient(circle at 15% 85%, rgba(50, 30, 5, 0.4) 0%, transparent 20%),
-        radial-gradient(circle at 75% 90%, rgba(65, 38, 6, 0.4) 0%, transparent 16%),
-        radial-gradient(circle at 50% 5%, rgba(80, 50, 10, 0.3) 0%, transparent 25%);
-    pointer-events: none;
-    z-index: 1;
-    border-radius: 8px;
-}
-
-/* ── Bordes laterales oxidados (relieve) ───────────────────── */
-.maquina-borde-izq,
-.maquina-borde-der {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 24px;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.maquina-borde-izq {
-    left: 0;
-    background: linear-gradient(90deg,
-        rgba(46, 31, 10, 0.9) 0%,
-        rgba(107, 76, 30, 0.4) 40%,
-        transparent 100%
-    );
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.maquina-borde-der {
-    right: 0;
-    background: linear-gradient(-90deg,
-        rgba(46, 31, 10, 0.9) 0%,
-        rgba(107, 76, 30, 0.4) 40%,
-        transparent 100%
-    );
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   ZONA SUPERIOR — Medidor + Pantalla LCD
-   ═══════════════════════════════════════════════════════════════ */
-.maquina-superior {
-    padding: 20px 40px 14px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    position: relative;
-    z-index: 3;
+    justify-content: space-between;
+    padding: 6px 16px;
+    background: rgba(0,0,0,0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
+    z-index: 10;
 }
+.barra-izq { display:flex; align-items:center; gap:8px; }
+.barra-centro { flex:1; text-align:center; }
+.barra-der { display:flex; align-items:center; gap:8px; }
 
-/* ── Medidor / indicador horizontal ────────────────────────── */
-.medidor {
-    width: 50%;
-    height: 10px;
-    background: #1a1510;
+.nivel-badge {
+    font-family: var(--fuente-display);
+    font-size: clamp(0.4rem,0.8vw,0.6rem);
+    color: var(--lcd-texto);
+    background: rgba(0,0,0,0.5);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-shadow: 0 0 8px var(--lcd-texto);
+}
+.xp-barra-wrap {
+    width: clamp(80px,12vw,160px);
+    height: 6px;
+    background: rgba(0,0,0,0.6);
     border-radius: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
     overflow: hidden;
-    position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
 }
-
-.medidor::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    background: repeating-linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.05) 0px,
-        rgba(255, 255, 255, 0.05) 1px,
-        transparent 1px,
-        transparent 4px
-    );
-}
-
-.medidor-barra {
+.xp-barra {
     height: 100%;
-    width: 30%;
+    width: 0%;
     background: linear-gradient(90deg, var(--lcd-texto), var(--lcd-brillo));
     border-radius: 2px;
     transition: width 0.5s ease;
     box-shadow: 0 0 6px var(--lcd-texto);
 }
-
-/* ── Pantalla LCD ──────────────────────────────────────────── */
-.lcd {
-    width: 65%;
-    aspect-ratio: 3 / 1;
-    background: var(--lcd-fondo);
-    border-radius: 6px;
-    border: 4px solid var(--lcd-marco);
-    box-shadow:
-        inset 0 0 20px rgba(0, 0, 0, 0.6),
-        inset 0 2px 8px rgba(0, 0, 0, 0.5),
-        0 2px 0 rgba(255, 255, 255, 0.03),
-        0 4px 8px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Reflejo diagonal del cristal */
-.lcd-cristal {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.06) 0%,
-        rgba(255, 255, 255, 0.02) 30%,
-        transparent 50%
-    );
-    pointer-events: none;
-}
-
-.lcd-contenido {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    z-index: 1;
-}
-
-.lcd-monedas {
+.escenario-nombre {
     font-family: var(--fuente-display);
-    font-size: clamp(0.7rem, 2.5vw, 1.5rem);
-    color: var(--lcd-texto);
-    text-shadow: 0 0 8px var(--lcd-texto), 0 0 20px rgba(51, 255, 102, 0.3);
-    letter-spacing: 2px;
-}
-
-.lcd-icono {
-    font-size: clamp(0.6rem, 2vw, 1.1rem);
-}
-
-.lcd-resultado {
-    font-family: var(--fuente-display);
-    font-size: clamp(0.35rem, 1vw, 0.6rem);
-    color: var(--lcd-brillo);
-    text-shadow: 0 0 6px var(--lcd-brillo);
-    min-height: 1em;
-    z-index: 1;
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   ZONA CENTRAL — Los 3 rodillos
-   ═══════════════════════════════════════════════════════════════ */
-.maquina-centro {
-    display: flex;
-    justify-content: center;
-    gap: clamp(8px, 2vw, 18px);
-    padding: 10px 40px 20px;
-    position: relative;
-    z-index: 3;
-}
-
-/* ── Marco de cada rodillo ─────────────────────────────────── */
-.rodillo-marco {
-    flex: 1;
-    max-width: 180px;
-    aspect-ratio: 3 / 4;
-    background:
-        radial-gradient(ellipse at 50% 30%, rgba(90, 68, 40, 0.6) 0%, transparent 70%),
-        linear-gradient(180deg, var(--marco-rodillo-claro) 0%, var(--marco-rodillo) 100%);
-    border-radius: 10px;
-    border: 3px solid rgba(0, 0, 0, 0.6);
-    box-shadow:
-        inset 0 2px 4px rgba(255, 255, 255, 0.06),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.4),
-        0 4px 12px rgba(0, 0, 0, 0.5);
-    padding: 10px 8px;
-    display: flex;
-    position: relative;
-}
-
-/* Efecto de desgaste en las esquinas del marco */
-.rodillo-marco::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    background:
-        radial-gradient(circle at 5% 5%, rgba(30, 15, 5, 0.5) 0%, transparent 30%),
-        radial-gradient(circle at 95% 5%, rgba(30, 15, 5, 0.4) 0%, transparent 25%),
-        radial-gradient(circle at 5% 95%, rgba(30, 15, 5, 0.4) 0%, transparent 25%),
-        radial-gradient(circle at 95% 95%, rgba(30, 15, 5, 0.5) 0%, transparent 30%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   ZONA INFERIOR — Base metálica con botones
-   ═══════════════════════════════════════════════════════════════ */
-.maquina-base {
-    background:
-        radial-gradient(ellipse at 30% 50%, rgba(150, 140, 125, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 30%, rgba(140, 135, 120, 0.2) 0%, transparent 40%),
-        linear-gradient(180deg, var(--metal-oscuro) 0%, var(--metal-base) 30%, var(--metal) 100%);
-    padding: 20px 40px 24px;
-    position: relative;
-    z-index: 3;
-    border-top: 2px solid rgba(0, 0, 0, 0.3);
-}
-
-/* Efecto de arañazos en la base */
-.maquina-base::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(30deg, transparent 48%, rgba(255,255,255,0.02) 49%, rgba(255,255,255,0.02) 51%, transparent 52%),
-        linear-gradient(-20deg, transparent 48%, rgba(255,255,255,0.015) 49%, rgba(255,255,255,0.015) 51%, transparent 52%),
-        linear-gradient(75deg, transparent 48%, rgba(0,0,0,0.03) 49%, rgba(0,0,0,0.03) 51%, transparent 52%);
-    pointer-events: none;
-}
-
-.base-botones {
-    display: flex;
-    align-items: center;
-    gap: clamp(10px, 3vw, 24px);
-    justify-content: center;
-}
-
-/* ── Botones físicos 3D ────────────────────────────────────── */
-.btn-fisico {
-    width: clamp(50px, 10vw, 80px);
-    height: clamp(40px, 8vw, 60px);
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.08s ease;
-    font-family: var(--fuente-display);
-    font-size: clamp(0.45rem, 1.2vw, 0.7rem);
-    outline: none;
-}
-
-.btn-fisico-cara {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-/* ── Botón AMARILLO ────────────────────────────────────────── */
-.btn-amarillo {
-    background: linear-gradient(180deg, var(--btn-amarillo-oscuro) 0%, var(--btn-amarillo-sombra) 100%);
-    box-shadow:
-        0 4px 0 var(--btn-amarillo-sombra),
-        0 6px 8px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.btn-amarillo .btn-fisico-cara {
-    background:
-        radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-        linear-gradient(180deg, var(--btn-amarillo-claro) 0%, var(--btn-amarillo) 60%, var(--btn-amarillo-oscuro) 100%);
-    color: var(--oxido-5);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-amarillo:hover .btn-fisico-cara {
-    background:
-        radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
-        linear-gradient(180deg, #e0c450 0%, var(--btn-amarillo-claro) 60%, var(--btn-amarillo) 100%);
-}
-
-.btn-amarillo:active {
-    box-shadow:
-        0 1px 0 var(--btn-amarillo-sombra),
-        0 2px 4px rgba(0, 0, 0, 0.3);
-    transform: translateY(3px);
-}
-
-/* ── Botón ROJO ────────────────────────────────────────────── */
-.btn-rojo {
-    background: linear-gradient(180deg, var(--btn-rojo-oscuro) 0%, var(--btn-rojo-sombra) 100%);
-    box-shadow:
-        0 4px 0 var(--btn-rojo-sombra),
-        0 6px 8px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    margin-left: clamp(10px, 4vw, 40px);
-}
-
-.btn-rojo .btn-fisico-cara {
-    background:
-        radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
-        linear-gradient(180deg, var(--btn-rojo-claro) 0%, var(--btn-rojo) 60%, var(--btn-rojo-oscuro) 100%);
-    color: #1a0808;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.btn-rojo:hover .btn-fisico-cara {
-    background:
-        radial-gradient(ellipse at 40% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-        linear-gradient(180deg, #c05050 0%, var(--btn-rojo-claro) 60%, var(--btn-rojo) 100%);
-}
-
-.btn-rojo:active {
-    box-shadow:
-        0 1px 0 var(--btn-rojo-sombra),
-        0 2px 4px rgba(0, 0, 0, 0.3);
-    transform: translateY(3px);
-}
-
-.btn-fisico:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    filter: grayscale(0.5);
-}
-
-
-/* ── Display de apuesta ────────────────────────────────────── */
-.base-apuesta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.apuesta-label {
-    font-family: var(--fuente-display);
-    font-size: clamp(0.35rem, 0.7vw, 0.5rem);
-    color: var(--color-texto-dim);
-    letter-spacing: 3px;
-}
-
-.apuesta-valor {
-    font-family: var(--fuente-display);
-    font-size: clamp(0.6rem, 1.5vw, 1rem);
-    color: var(--color-oro);
-    text-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
-}
-
-
-/* ── Cables decorativos ────────────────────────────────────── */
-.cable {
-    position: absolute;
-    height: 2px;
-    background: #2a2520;
-    border-radius: 1px;
-    z-index: 2;
-}
-
-.cable-1 {
-    bottom: 30%;
-    right: 18%;
-    width: 60px;
-    transform: rotate(-5deg);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.cable-2 {
-    bottom: 25%;
-    right: 14%;
-    width: 40px;
-    transform: rotate(8deg);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   PANEL DE STATS (debajo de la máquina)
-   ═══════════════════════════════════════════════════════════════ */
-.panel-stats {
-    display: flex;
-    justify-content: center;
-    gap: clamp(1rem, 4vw, 2.5rem);
-    padding: 0.8rem 1.5rem;
-    background:
-        linear-gradient(180deg, rgba(30, 25, 18, 0.95) 0%, rgba(20, 16, 10, 0.95) 100%);
-    border: 1px solid rgba(107, 76, 30, 0.25);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    width: clamp(340px, 70vw, 650px);
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-}
-
-.stat-label {
-    font-family: var(--fuente-display);
-    font-size: clamp(0.3rem, 0.6vw, 0.45rem);
+    font-size: clamp(0.35rem,0.7vw,0.5rem);
     color: var(--color-texto-dim);
     letter-spacing: 1px;
 }
-
-.stat-valor {
+.monedas-display {
     font-family: var(--fuente-display);
-    font-size: clamp(0.55rem, 1.1vw, 0.8rem);
-    color: var(--color-texto);
+    font-size: clamp(0.5rem,1vw,0.8rem);
+    color: var(--color-oro);
+    text-shadow: 0 0 8px rgba(255,215,0,0.3);
 }
-
-.btn-reset {
-    font-size: 1rem;
-    background: transparent;
-    border: 1px solid rgba(107, 76, 30, 0.25);
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.btn-reset:hover {
-    border-color: var(--color-error);
-    background: rgba(255, 68, 68, 0.1);
-}
-
-
-/* ═══════════════════════════════════════════════════════════════
-   MENSAJES
-   ═══════════════════════════════════════════════════════════════ */
-.mensaje {
+.monedas-icono { font-size: 0.9rem; }
+.mps-display {
     font-family: var(--fuente-display);
-    font-size: clamp(0.4rem, 0.9vw, 0.6rem);
-    min-height: 1rem;
-    opacity: 0;
-    text-align: center;
+    font-size: clamp(0.3rem,0.6vw,0.45rem);
+    color: var(--color-texto-dim);
 }
 
-.mensaje-error { color: var(--color-error); }
-.mensaje-exito { color: var(--color-exito); }
-.mensaje-info  { color: var(--lcd-texto); }
-
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 500px) {
-    .maquina-superior { padding: 14px 24px 10px; }
-    .maquina-centro { padding: 8px 24px 14px; }
-    .maquina-base { padding: 14px 24px 18px; }
-    .lcd { width: 75%; }
+/* ═══ LAYOUT PRINCIPAL — 2 COLUMNAS FULLSCREEN ═══ */
+.layout-principal {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    min-height: 0;
+    overflow: hidden;
+}
+.col-maquina {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+}
+.col-tienda {
+    width: clamp(220px, 22vw, 300px);
+    flex-shrink: 0;
+    overflow-y: auto;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SELECCIÓN + SCROLLBAR
-   ═══════════════════════════════════════════════════════════════ */
-::selection {
-    background: rgba(196, 168, 50, 0.3);
-    color: white;
+/* ═══ LA MÁQUINA ═══ */
+.maquina {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    background:
+        radial-gradient(ellipse at 25% 15%, rgba(100,60,15,0.5) 0%, transparent 40%),
+        radial-gradient(ellipse at 75% 25%, rgba(80,50,10,0.4) 0%, transparent 35%),
+        radial-gradient(ellipse at 20% 70%, rgba(60,35,8,0.5) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 65%, rgba(90,55,12,0.4) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 90%, rgba(50,30,5,0.3) 0%, transparent 50%),
+        linear-gradient(180deg, var(--maquina-primario) 0%, var(--maquina-secundario) 50%, var(--maquina-borde) 100%);
+    border-radius: 10px;
+    border: 3px solid var(--maquina-borde);
+    box-shadow:
+        inset 0 0 40px rgba(0,0,0,0.5),
+        inset 0 2px 0 rgba(255,255,255,0.04),
+        0 8px 30px rgba(0,0,0,0.7);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background 1s ease, border-color 1s ease;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-    background: rgba(107, 76, 30, 0.4);
-    border-radius: 3px;
+/* Manchas de óxido */
+.maquina::before {
+    content:"";
+    position:absolute; inset:0;
+    background:
+        radial-gradient(circle at 8% 12%, rgba(80,40,5,0.6) 0%, transparent 12%),
+        radial-gradient(circle at 92% 8%, rgba(70,35,5,0.5) 0%, transparent 10%),
+        radial-gradient(circle at 5% 55%, rgba(60,30,5,0.5) 0%, transparent 15%),
+        radial-gradient(circle at 95% 50%, rgba(65,35,5,0.45) 0%, transparent 12%),
+        radial-gradient(circle at 12% 88%, rgba(50,25,5,0.4) 0%, transparent 18%),
+        radial-gradient(circle at 88% 85%, rgba(55,28,5,0.35) 0%, transparent 14%),
+        radial-gradient(circle at 50% 3%, rgba(70,40,8,0.25) 0%, transparent 20%);
+    pointer-events:none; z-index:1; border-radius:8px;
 }
+/* Grietas/arañazos */
+.maquina::after {
+    content:"";
+    position:absolute; inset:0;
+    background:
+        linear-gradient(25deg, transparent 49.5%, rgba(0,0,0,0.08) 49.5%, rgba(0,0,0,0.08) 50.5%, transparent 50.5%),
+        linear-gradient(-35deg, transparent 49.5%, rgba(0,0,0,0.06) 49.5%, rgba(0,0,0,0.06) 50.5%, transparent 50.5%),
+        linear-gradient(65deg, transparent 49.5%, rgba(255,255,255,0.02) 49.5%, rgba(255,255,255,0.02) 50.5%, transparent 50.5%);
+    pointer-events:none; z-index:1; border-radius:8px;
+}
+
+.maquina-borde-izq, .maquina-borde-der {
+    position:absolute; top:0; bottom:0; width:20px; z-index:2; pointer-events:none;
+}
+.maquina-borde-izq {
+    left:0;
+    background: linear-gradient(90deg, rgba(20,12,4,0.85) 0%, rgba(80,55,20,0.3) 50%, transparent 100%);
+}
+.maquina-borde-der {
+    right:0;
+    background: linear-gradient(-90deg, rgba(20,12,4,0.85) 0%, rgba(80,55,20,0.3) 50%, transparent 100%);
+}
+
+/* ═══ LCD ═══ */
+.maquina-superior { padding:14px 32px 10px; display:flex; flex-direction:column; align-items:center; gap:6px; z-index:3; }
+
+.medidor {
+    width:55%; height:8px; background:#0a0806; border-radius:3px;
+    border:1px solid rgba(0,0,0,0.5); box-shadow:inset 0 1px 3px rgba(0,0,0,0.8); overflow:hidden; position:relative;
+}
+.medidor-barra {
+    height:100%; width:30%; background:linear-gradient(90deg,var(--lcd-texto),var(--lcd-brillo));
+    border-radius:2px; transition:width 0.5s; box-shadow:0 0 4px var(--lcd-texto);
+}
+
+.lcd {
+    width:68%; aspect-ratio:3/1; background:var(--lcd-fondo);
+    border-radius:5px; border:3px solid #1a1208;
+    box-shadow: inset 0 0 18px rgba(0,0,0,0.6), 0 3px 6px rgba(0,0,0,0.4);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:1px; position:relative; overflow:hidden; transition:background 1s, border-color 1s;
+}
+.lcd-cristal {
+    position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events:none;
+}
+.lcd-contenido { display:flex; align-items:center; gap:5px; z-index:1; }
+.lcd-monedas {
+    font-family:var(--fuente-display); font-size:clamp(0.6rem,2.2vw,1.3rem);
+    color:var(--lcd-texto); text-shadow:0 0 8px var(--lcd-texto); letter-spacing:2px;
+    transition: color 1s;
+}
+.lcd-icono { font-size:clamp(0.5rem,1.5vw,0.9rem); }
+.lcd-resultado {
+    font-family:var(--fuente-display); font-size:clamp(0.3rem,0.9vw,0.5rem);
+    color:var(--lcd-brillo); text-shadow:0 0 4px var(--lcd-brillo); min-height:0.8em; z-index:1;
+}
+
+/* ═══ RODILLOS ═══ */
+.maquina-centro {
+    display:flex; justify-content:center; gap:clamp(6px,1.5vw,14px);
+    padding:8px 32px 14px; z-index:3;
+}
+.rodillo-marco {
+    flex:1; max-width:160px; aspect-ratio:3/4;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(80,60,30,0.5) 0%, transparent 60%),
+        linear-gradient(180deg, #4a3820 0%, #3a2a14 100%);
+    border-radius:8px; border:2px solid rgba(0,0,0,0.6);
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.05), inset 0 -2px 5px rgba(0,0,0,0.4), 0 3px 10px rgba(0,0,0,0.5);
+    padding:8px 6px; display:flex; position:relative;
+}
+.rodillo-marco::before {
+    content:""; position:absolute; inset:0; border-radius:6px;
+    background:
+        radial-gradient(circle at 5% 5%, rgba(25,12,3,0.5) 0%, transparent 28%),
+        radial-gradient(circle at 95% 5%, rgba(25,12,3,0.4) 0%, transparent 22%),
+        radial-gradient(circle at 5% 95%, rgba(25,12,3,0.4) 0%, transparent 22%),
+        radial-gradient(circle at 95% 95%, rgba(25,12,3,0.5) 0%, transparent 28%);
+    pointer-events:none; z-index:1;
+}
+
+/* ═══ BASE ═══ */
+.maquina-base {
+    background:
+        radial-gradient(ellipse at 30% 40%, rgba(140,130,115,0.25) 0%, transparent 50%),
+        linear-gradient(180deg, #4a4540 0%, #6b6660 40%, #7a756c 100%);
+    padding:14px 32px 18px; z-index:3; border-top:2px solid rgba(0,0,0,0.3); position:relative;
+}
+.maquina-base::before {
+    content:""; position:absolute; inset:0;
+    background:
+        linear-gradient(28deg, transparent 49%, rgba(255,255,255,0.015) 49%, rgba(255,255,255,0.015) 51%, transparent 51%),
+        linear-gradient(-18deg, transparent 49%, rgba(0,0,0,0.02) 49%, rgba(0,0,0,0.02) 51%, transparent 51%);
+    pointer-events:none;
+}
+.base-botones { display:flex; align-items:center; gap:clamp(8px,2vw,18px); justify-content:center; }
+
+/* Botones 3D */
+.btn-fisico {
+    width:clamp(44px,8vw,68px); height:clamp(34px,6.5vw,52px);
+    border:none; border-radius:5px; cursor:pointer; position:relative;
+    transition:all 0.08s; font-family:var(--fuente-display); font-size:clamp(0.4rem,1vw,0.6rem); outline:none;
+}
+.btn-fisico-cara {
+    display:flex; align-items:center; justify-content:center; width:100%; height:100%;
+    border-radius:3px; z-index:1; text-shadow:0 1px 1px rgba(0,0,0,0.3);
+}
+.btn-amarillo {
+    background:linear-gradient(180deg, #8a7220, #5c4a10);
+    box-shadow: 0 3px 0 #5c4a10, 0 5px 6px rgba(0,0,0,0.4);
+}
+.btn-amarillo .btn-fisico-cara {
+    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        linear-gradient(180deg, #d4b442, #b89a30 60%, #8a7220);
+    color:#2e1f0a; border:1px solid rgba(0,0,0,0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -2px 3px rgba(0,0,0,0.15);
+}
+.btn-amarillo:hover .btn-fisico-cara {
+    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.25) 0%, transparent 50%),
+        linear-gradient(180deg, #e0c450, #d4b442 60%, #b89a30);
+}
+.btn-amarillo:active { box-shadow:0 1px 0 #5c4a10, 0 1px 3px rgba(0,0,0,0.3); transform:translateY(2px); }
+
+.btn-rojo {
+    background:linear-gradient(180deg, #6a2828, #3a1515);
+    box-shadow:0 3px 0 #3a1515, 0 5px 6px rgba(0,0,0,0.4);
+    margin-left:clamp(8px,3vw,30px);
+}
+.btn-rojo .btn-fisico-cara {
+    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #a84444, #8b3a3a 60%, #6a2828);
+    color:#0e0404; border:1px solid rgba(0,0,0,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -2px 3px rgba(0,0,0,0.2);
+}
+.btn-rojo:hover .btn-fisico-cara {
+    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.18) 0%, transparent 50%),
+        linear-gradient(180deg, #c05050, #a84444 60%, #8b3a3a);
+}
+.btn-rojo:active { box-shadow:0 1px 0 #3a1515, 0 1px 3px rgba(0,0,0,0.3); transform:translateY(2px); }
+.btn-fisico:disabled { opacity:0.4; cursor:not-allowed; filter:grayscale(0.5); }
+
+.base-apuesta { display:flex; flex-direction:column; align-items:center; margin-top:6px; }
+.apuesta-label { font-family:var(--fuente-display); font-size:clamp(0.3rem,0.5vw,0.4rem); color:var(--color-texto-dim); letter-spacing:2px; }
+.apuesta-valor { font-family:var(--fuente-display); font-size:clamp(0.5rem,1.2vw,0.8rem); color:var(--color-oro); text-shadow:0 0 4px rgba(255,215,0,0.3); }
+
+.cable { position:absolute; height:2px; background:#2a2520; border-radius:1px; z-index:2; }
+.cable-1 { bottom:28%; right:16%; width:50px; transform:rotate(-5deg); }
+.cable-2 { bottom:22%; right:12%; width:35px; transform:rotate(8deg); }
+
+/* ═══ STATS ═══ */
+.panel-stats {
+    display:flex; justify-content:center; gap:clamp(1rem,3vw,2rem); padding:6px 12px;
+    background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.04); border-radius:6px; width:100%; max-width:520px;
+}
+.stat-item { display:flex; flex-direction:column; align-items:center; gap:1px; }
+.stat-label { font-family:var(--fuente-display); font-size:clamp(0.25rem,0.5vw,0.38rem); color:var(--color-texto-dim); letter-spacing:1px; }
+.stat-valor { font-family:var(--fuente-display); font-size:clamp(0.45rem,0.9vw,0.65rem); color:var(--color-texto); }
+.btn-reset { font-size:0.9rem; background:transparent; border:1px solid rgba(255,255,255,0.06); border-radius:3px; padding:3px 6px; cursor:pointer; transition:all 0.15s; }
+.btn-reset:hover { border-color:var(--color-error); background:rgba(255,68,68,0.1); }
+
+/* ═══ MENSAJES + NOTIFICACIONES ═══ */
+.mensaje { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); font-family:var(--fuente-display); font-size:clamp(0.35rem,0.7vw,0.5rem); opacity:0; z-index:20; pointer-events:none; }
+.mensaje-error { color:var(--color-error); }
+.mensaje-exito { color:var(--color-exito); }
+.mensaje-info { color:var(--lcd-texto); }
+
+.notificacion-nivel {
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--fuente-display);
+    font-size:clamp(0.8rem,2vw,1.5rem); color:var(--color-oro); text-shadow:0 0 20px var(--color-oro);
+    opacity:0; z-index:30; pointer-events:none; text-align:center;
+}
+
+/* ═══ ESCENARIOS — Overrides por tema ═══ */
+.escenario-callejon { /* Default - ya definido en :root */ }
+
+.escenario-bar .maquina {
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,50,150,0.08), 0 8px 30px rgba(0,0,0,0.7);
+}
+
+.escenario-casino .maquina {
+    border-color: #4a1010;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4), 0 0 40px rgba(255,30,30,0.1), 0 8px 30px rgba(0,0,0,0.7);
+}
+
+.escenario-vip .maquina {
+    border-color: #3a3520;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4), 0 0 40px rgba(255,215,0,0.08), 0 8px 30px rgba(0,0,0,0.7);
+}
+.escenario-vip .maquina::before { opacity: 0.3; }
+.escenario-vip .maquina::after { opacity: 0.15; }
+
+.escenario-highroller .maquina {
+    border-color: #1a2a4a;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.3), 0 0 50px rgba(100,200,255,0.1), 0 8px 30px rgba(0,0,0,0.7);
+}
+.escenario-highroller .maquina::before { opacity: 0.1; }
+.escenario-highroller .maquina::after { opacity: 0.05; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width:768px) {
+    .layout-principal { flex-direction:column; overflow-y:auto; }
+    .col-tienda { width:100%; }
+    .barra-centro { display:none; }
+}
+::selection { background:rgba(196,168,50,0.3); color:white; }
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(107,76,30,0.3); border-radius:3px; }
