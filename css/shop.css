@@ -1,0 +1,178 @@
+/**
+ * Estilos de la tienda de mejoras — Casino Clicker
+ *
+ * @author Paco, Majemami, Polanco, Abraham
+ * @version 1.0
+ * @since 2026-04-27
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   PANEL DE TIENDA
+   ═══════════════════════════════════════════════════════════════ */
+.panel-tienda {
+    width: clamp(340px, 70vw, 650px);
+    background: rgba(20, 16, 10, 0.95);
+    border: 1px solid rgba(107, 76, 30, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tienda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: rgba(107, 76, 30, 0.15);
+    border-bottom: 1px solid rgba(107, 76, 30, 0.2);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease;
+}
+
+.tienda-header:hover {
+    background: rgba(107, 76, 30, 0.25);
+}
+
+.tienda-titulo {
+    font-family: var(--fuente-display);
+    font-size: clamp(0.5rem, 1vw, 0.7rem);
+    color: var(--color-texto);
+    letter-spacing: 2px;
+}
+
+.tienda-toggle {
+    font-size: 0.8rem;
+    color: var(--color-texto-dim);
+    transition: transform 0.3s ease;
+}
+
+.tienda-toggle.abierta {
+    transform: rotate(180deg);
+}
+
+/* ── Contenedor de items ───────────────────────────────────── */
+.tienda-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+    max-height: 320px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+}
+
+.tienda-items.cerrada {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* ── Item individual ───────────────────────────────────────── */
+.tienda-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(107, 76, 30, 0.15);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: var(--fuente-cuerpo);
+    color: var(--color-texto);
+    text-align: left;
+    width: 100%;
+}
+
+.tienda-item:hover:not(:disabled) {
+    background: rgba(107, 76, 30, 0.15);
+    border-color: rgba(107, 76, 30, 0.3);
+    transform: translateX(3px);
+}
+
+.tienda-item:active:not(:disabled) {
+    transform: translateX(1px);
+    background: rgba(107, 76, 30, 0.25);
+}
+
+.tienda-item-asequible {
+    border-color: rgba(68, 255, 136, 0.2);
+}
+
+.tienda-item-asequible:hover {
+    border-color: rgba(68, 255, 136, 0.4) !important;
+    box-shadow: 0 0 8px rgba(68, 255, 136, 0.1);
+}
+
+.tienda-item-caro {
+    opacity: 0.5;
+}
+
+.tienda-item-max {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* ── Partes del item ───────────────────────────────────────── */
+.tienda-item-icono {
+    font-size: 1.4rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.tienda-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.tienda-item-nombre {
+    font-family: var(--fuente-display);
+    font-size: clamp(0.4rem, 0.8vw, 0.55rem);
+    color: var(--color-texto);
+    letter-spacing: 0.5px;
+}
+
+.tienda-item-desc {
+    font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+    color: var(--color-texto-dim);
+}
+
+.tienda-item-derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.tienda-item-nivel {
+    font-family: var(--fuente-display);
+    font-size: clamp(0.35rem, 0.6vw, 0.45rem);
+    color: var(--color-texto-dim);
+}
+
+.tienda-item-coste {
+    font-family: var(--fuente-display);
+    font-size: clamp(0.4rem, 0.7vw, 0.55rem);
+    color: var(--color-oro);
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.2);
+}
+
+/* ── Scrollbar de la tienda ────────────────────────────────── */
+.tienda-items::-webkit-scrollbar {
+    width: 4px;
+}
+
+.tienda-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tienda-items::-webkit-scrollbar-thumb {
+    background: rgba(107, 76, 30, 0.3);
+    border-radius: 2px;
+}

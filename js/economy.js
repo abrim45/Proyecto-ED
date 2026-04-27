@@ -30,11 +30,11 @@ const TABLA_PREMIOS = [
     { coincidencias: 2, multiplicador: 5,  nombre: "✨ DOBLE" },
 ];
 
-/** @constant {Object} Bonus extra según el símbolo ganador. */
+/** @constant {Object} Bonus extra según el símbolo ganador (por ID). */
 const BONUS_SIMBOLOS = {
-    "💎": 2.0,
-    "⭐": 1.5,
-    "🔔": 1.25,
+    "diamond": 2.0,
+    "star":    1.5,
+    "bell":    1.25,
 };
 
 // ═══════════════════════════════════════════════════════════════

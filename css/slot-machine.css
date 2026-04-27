@@ -1,49 +1,82 @@
 /**
- * Estilos de los rodillos — Casino Clicker (Vintage)
- * Los rodillos se posicionan sobre la imagen SLOT.png.
+ * Estilos de los rodillos — Casino Clicker (Vintage con imágenes)
  *
  * @author Paco, Majemami, Polanco, Abraham
- * @version 2.0
+ * @version 3.0
  * @since 2026-04-22
  */
 
-/* ── Ventana de cada rodillo ───────────────────────────────── */
+/* ── Ventana del rodillo ───────────────────────────────────── */
 .rodillo-ventana {
     flex: 1;
     height: 100%;
-    background: rgba(220, 210, 185, 0.12);
-    border-radius: var(--radio-sm);
+    background:
+        radial-gradient(ellipse at 50% 80%, rgba(120, 100, 70, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 30% 20%, rgba(100, 80, 50, 0.15) 0%, transparent 40%),
+        linear-gradient(180deg, #c8bfa0 0%, #ddd5c0 30%, #e8e0cc 50%, #ddd5c0 70%, #c0b898 100%);
+    border-radius: 6px;
     overflow: hidden;
     position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow:
+        inset 0 8px 16px rgba(0, 0, 0, 0.35),
+        inset 0 -8px 16px rgba(0, 0, 0, 0.2),
+        inset 4px 0 8px rgba(0, 0, 0, 0.15),
+        inset -4px 0 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Sombra interna tipo cristal oscuro */
+/* Efecto de curva/cilindro */
+.rodillo-ventana::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.05) 15%,
+            transparent 30%,
+            transparent 70%,
+            rgba(0, 0, 0, 0.05) 85%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Reflejo cristal */
 .rodillo-ventana::after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 40%;
     background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.35) 0%,
-        rgba(0, 0, 0, 0) 25%,
-        rgba(0, 0, 0, 0) 75%,
-        rgba(0, 0, 0, 0.35) 100%
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 100%
     );
     pointer-events: none;
-    z-index: 2;
+    z-index: 4;
 }
 
-/* ── Símbolos ──────────────────────────────────────────────── */
+/* ── Cada celda de símbolo ─────────────────────────────────── */
 .simbolo {
     width: 100%;
     height: var(--size);
-    font-size: var(--font-size);
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
-    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
+    padding: 10%;
+}
+
+/* ── Imagen del símbolo ────────────────────────────────────── */
+.simbolo-img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.4));
+    user-select: none;
+    pointer-events: none;
 }
