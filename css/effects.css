@@ -1,22 +1,58 @@
 /**
- * Animaciones y efectos — Casino Clicker (Vintage)
+ * Animaciones y efectos premium — Casino Clicker "Dopamina Edition"
  *
  * @author Paco, Majemami, Polanco, Abraham
- * @version 2.0
- * @since 2026-04-22
+ * @version 3.0
+ * @since 2026-04-29
  */
 
 /* ═══════════════════════════════════════════════════════════════
-   ANIMACIONES @keyframes
+   ANIMACIONES GENERALES
    ═══════════════════════════════════════════════════════════════ */
 
 /* Fade in/out para resultados y mensajes */
 @keyframes fadeInOut {
-    0%   { opacity: 0; transform: translateY(-5px); }
-    15%  { opacity: 1; transform: translateY(0); }
-    80%  { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(3px); }
+    0%   { opacity: 0; transform: translate(-50%, 10px); }
+    15%  { opacity: 1; transform: translate(-50%, 0); }
+    80%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
 }
+
+@keyframes fadeInOutSimple {
+    0%   { opacity: 0; }
+    15%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Fondo panorámico */
+@keyframes pan-fondo {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* Brillo del neón */
+@keyframes pulse-neon {
+    0% {
+        box-shadow: 0 0 10px rgba(34, 204, 68, 0.3), inset 0 0 8px rgba(34, 204, 68, 0.2);
+        text-shadow: 0 0 5px var(--lcd-brillo);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(34, 204, 68, 0.6), inset 0 0 15px rgba(34, 204, 68, 0.4);
+        text-shadow: 0 0 15px var(--lcd-brillo), 0 0 20px #fff;
+    }
+}
+
+/* Reflejo metálico en la máquina */
+@keyframes brillo-metal {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMACIONES DE LA MÁQUINA
+   ═══════════════════════════════════════════════════════════════ */
 
 /* Sacudida al ganar */
 @keyframes sacudir {
@@ -31,41 +67,78 @@
 
 /* Pulso del display LCD al ganar */
 @keyframes pulso-lcd {
-    0%   { text-shadow: 0 0 8px var(--lcd-texto); }
-    50%  { text-shadow: 0 0 20px var(--lcd-texto), 0 0 40px var(--lcd-brillo); }
-    100% { text-shadow: 0 0 8px var(--lcd-texto); }
+    0%   { transform: scale(1); box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.6), 0 0 10px rgba(34, 204, 68, 0.1); }
+    50%  { transform: scale(1.02); box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 5px 25px rgba(0,0,0,0.6), 0 0 40px rgba(34, 204, 68, 0.6); }
+    100% { transform: scale(1); box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.6), 0 0 10px rgba(34, 204, 68, 0.1); }
 }
 
-/* Brillo del medidor */
-@keyframes medidor-brillo {
-    0%, 100% { opacity: 0.7; }
-    50%      { opacity: 1; }
+/* ═══════════════════════════════════════════════════════════════
+   SISTEMA DE PARTÍCULAS (DOM)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Texto flotante (+50 🪙) */
+@keyframes float-up-fade {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.5);
+    }
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -20px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -80px) scale(1);
+    }
 }
 
-/* Parpadeo sutil del LCD (estilo viejo) */
-@keyframes parpadeo-lcd {
-    0%, 95%, 100% { opacity: 1; }
-    96%           { opacity: 0.85; }
-    97%           { opacity: 1; }
-    98%           { opacity: 0.9; }
+.texto-flotante {
+    position: absolute;
+    font-family: var(--fuente-display);
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    color: var(--color-oro);
+    text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px var(--color-oro);
+    pointer-events: none;
+    z-index: 100;
+    animation: float-up-fade 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Monedas físicas explotando */
+.moneda-particula {
+    position: absolute;
+    width: clamp(20px, 4vw, 35px);
+    height: clamp(20px, 4vw, 35px);
+    background: radial-gradient(circle at 30% 30%, #fffde0, #ffd700 40%, #b8860b 80%, #5c4305 100%);
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 0 0 2px #fff8b0,
+        inset 0 0 6px rgba(0,0,0,0.5),
+        0 4px 6px rgba(0,0,0,0.4),
+        0 0 15px rgba(255,215,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(10px, 1.5vw, 16px);
+    color: #b8860b;
+    pointer-events: none;
+    z-index: 90;
+    /* Físicas iniciales seteadas por JS via CSS variables */
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+    transition: transform 1.5s cubic-bezier(0.1, 0.9, 0.2, 1), opacity 0.5s ease 1s;
+    opacity: 1;
+}
+
+.moneda-particula::before {
+    content: "★";
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+
+.moneda-particula.caida {
+    opacity: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    CLASES UTILITARIAS
    ═══════════════════════════════════════════════════════════════ */
-.animar-sacudir {
-    animation: sacudir 0.5s ease;
-}
-
-.animar-pulso-lcd {
-    animation: pulso-lcd 0.8s ease 2;
-}
-
-/* El LCD tiene un parpadeo constante */
-.lcd-monedas {
-    animation: parpadeo-lcd 4s infinite;
-}
-
-.medidor-barra {
-    animation: medidor-brillo 2s infinite;
-}
+.animar-sacudir { animation: sacudir 0.5s ease; }
+.animar-pulso-lcd { animation: pulso-lcd 0.8s ease 2; }

@@ -13,6 +13,7 @@ class GameManager {
         this.economia = new Economy();
         this.almacenamiento = new Storage();
         this.niveles = new LevelSystem();
+        this.efectos = new EffectsManager();
         this.rodillos = [];
         this.tienda = null;
         this.girando = false;
@@ -115,12 +116,35 @@ class GameManager {
 
         this.economia.cobrarPremio(premio.premio);
 
+        // Disparar efectos visuales
+        if (premio.premio > 0) {
+            const maquina = document.getElementById("maquina-principal");
+            // Mostrar texto flotante del premio
+            this.efectos.mostrarTextoFlotante(`+${this._fmt(premio.premio)} 🪙`, maquina);
+            
+            // Si es un gran premio (más de 100 veces la apuesta) o un jackpot real, soltar más monedas
+            const factorPremio = premio.premio / this.economia.apuesta;
+            let numMonedas = Math.min(15, Math.floor(factorPremio));
+            
+            if (premio.coincidencias >= 3) {
+                numMonedas = 30; // Jackpot visual
+                if (this.multiplicadorJackpot > 1) {
+                    this.efectos.flashPantalla();
+                }
+            }
+            
+            if (numMonedas > 0) {
+                this.efectos.explotarMonedas(numMonedas, maquina);
+            }
+        }
+
         // XP = monedas ganadas (premio) + bonus por tirada
         const xpGanada = premio.premio > 0 ? premio.premio + 5 : 2;
         const resNivel = this.niveles.añadirXP(xpGanada);
 
         if (resNivel.subioNivel) {
             this._notificarNivel(resNivel.nuevoNivel);
+            this.efectos.flashPantalla("rgba(68, 255, 136, 0.3)"); // Flash verde al subir de nivel
             if (resNivel.cambioEscenario) {
                 this.niveles.aplicarEscenario();
                 this._notificarEscenario();
