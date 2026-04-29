@@ -331,7 +331,24 @@ body {
 
 .base-apuesta { display:flex; flex-direction:column; align-items:center; margin-top:6px; }
 .apuesta-label { font-family:var(--fuente-display); font-size:clamp(0.3rem,0.5vw,0.4rem); color:var(--color-texto-dim); letter-spacing:2px; }
-.apuesta-valor { font-family:var(--fuente-display); font-size:clamp(0.5rem,1.2vw,0.8rem); color:var(--color-oro); text-shadow:0 0 8px rgba(255,215,0,0.5); }
+.apuesta-valor { 
+    font-family:var(--fuente-display); 
+    font-size:clamp(0.5rem,1.2vw,0.8rem); 
+    color:var(--color-oro); 
+    text-shadow:0 0 8px rgba(255,215,0,0.5); 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,215,0,0.2);
+}
+.apuesta-valor:hover {
+    background: rgba(0,0,0,0.4);
+    border-color: rgba(255,215,0,0.6);
+    text-shadow:0 0 12px rgba(255,215,0,0.8); 
+    transform: scale(1.05);
+}
 
 .cable { position:absolute; height:2px; background:#2a2520; border-radius:1px; z-index:2; box-shadow: 0 2px 2px rgba(0,0,0,0.5); }
 .cable-1 { bottom:28%; right:16%; width:50px; transform:rotate(-5deg); }

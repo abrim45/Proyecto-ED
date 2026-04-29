@@ -72,10 +72,13 @@ class GameManager {
         if (g) g.addEventListener("click", () => this.tirar());
         const s = document.getElementById("btn-subir-apuesta");
         const b = document.getElementById("btn-bajar-apuesta");
-        if (s) s.addEventListener("click", () => this.cambiarApuesta(5));
-        if (b) b.addEventListener("click", () => this.cambiarApuesta(-5));
+        if (s) s.addEventListener("click", () => this.cambiarApuesta(1)); // 1 is direction
+        if (b) b.addEventListener("click", () => this.cambiarApuesta(-1)); // -1 is direction
         const r = document.getElementById("btn-reset");
         if (r) r.addEventListener("click", () => this.resetearPartida());
+        
+        const displayApuesta = document.getElementById("display-apuesta");
+        if (displayApuesta) displayApuesta.addEventListener("click", () => this.establecerApuestaManual());
     }
 
     _iniciarGameLoop() {
@@ -160,11 +163,39 @@ class GameManager {
         this._actualizarEstadoBoton(false);
     }
 
-    cambiarApuesta(inc) {
+    cambiarApuesta(direccion) {
         try {
-            this.economia.apuesta = Math.max(APUESTA_MINIMA, this.economia.apuesta + inc);
+            // Escalar el incremento según la apuesta actual para no tener que dar mil clics
+            let incrementoBase = 5;
+            if (this.economia.apuesta >= 1000) incrementoBase = 100;
+            else if (this.economia.apuesta >= 100) incrementoBase = 50;
+            else if (this.economia.apuesta >= 50) incrementoBase = 10;
+            
+            this.economia.apuesta = Math.max(APUESTA_MINIMA, this.economia.apuesta + (incrementoBase * direccion));
             this._actualizarUI();
         } catch(e) {}
+    }
+
+    establecerApuestaManual() {
+        const input = prompt(`Introduce tu apuesta (Mínimo: ${APUESTA_MINIMA}):`, this.economia.apuesta);
+        if (input !== null) {
+            let nuevaApuesta = parseInt(input, 10);
+            
+            // Permitir atajo "max"
+            if (input.trim().toLowerCase() === 'max') {
+                nuevaApuesta = this.economia.monedas;
+            }
+
+            if (!isNaN(nuevaApuesta) && nuevaApuesta >= APUESTA_MINIMA) {
+                // Prevenir apostar más de lo que se tiene si se quiere (opcional)
+                // Pero Economy.js ya maneja no poder tirar si apuesta > monedas
+                this.economia.apuesta = nuevaApuesta;
+                this._actualizarUI();
+                this._msg("Apuesta fijada en " + this._fmt(nuevaApuesta), "info");
+            } else {
+                this._msg("Cantidad no válida. El mínimo es " + APUESTA_MINIMA, "error");
+            }
+        }
     }
 
     resetearPartida() {
