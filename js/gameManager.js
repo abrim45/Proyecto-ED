@@ -280,7 +280,7 @@ class GameManager {
     _msg(t, tipo) {
         const el = document.getElementById("mensaje-juego");
         if (!el) return;
-        el.textContent = t; el.className = `mensaje mensaje-${tipo}`;
+        el.textContent = t; el.className = `toast-msg toast-${tipo}`;
         el.style.animation = "none"; void el.offsetHeight;
         el.style.animation = "fadeInOut 3s ease forwards";
     }
