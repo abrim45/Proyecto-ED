@@ -9,14 +9,15 @@ body {
   overflow: hidden;
 }
 
+/* --- CONTENEDOR SUPERIOR --- */
 #top-bar {
-  padding: 20px;
   text-align: center;
   z-index: 10;
+  margin: 2vh auto 0 auto;
 }
 
 #level-name {
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
   font-size: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -39,30 +40,31 @@ body {
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- CONTENEDOR PRINCIPAL DEL JUEGO (RESPONSIVE) --- */
 #game-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  justify-content: flex-start;
+  padding: 0 20px;
+  margin-top: 2vh;
 }
 
-/* Modificado para soportar el cartel */
 #stats {
-  margin-bottom: 30px;
+  margin-bottom: 2vh;
 }
 
 #stats h2 {
   font-size: 2.5rem;
-  margin: 0; /* Quitamos el margen para que el texto se centre bien dentro del cartel */
+  margin: 0;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 #slot-machine {
   display: flex;
   gap: 20px;
-  padding: 40px;
+  padding: 4vh 40px;
   border-radius: 20px;
   border: 8px solid;
   box-shadow:
@@ -106,17 +108,40 @@ body {
   }
 }
 
+/* --- ESTILOS DEL MENSAJE DIAGONAL --- */
 #message {
+  position: absolute;
+  bottom: -20px;
+  right: -30px;
   font-size: 1.8rem;
   font-weight: bold;
-  height: 40px;
-  margin: 30px 0;
   text-align: center;
+  z-index: 50;
+  pointer-events: none;
+
+  color: #ffd700;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    0 10px 20px rgba(0, 0, 0, 0.8);
+
+  opacity: 0;
+  transform: rotate(-15deg) scale(0.5);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#message.show {
+  opacity: 1;
+  transform: rotate(-15deg) scale(1.1);
 }
 
 #controls {
   display: flex;
   gap: 30px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 }
 
 button {
@@ -178,7 +203,6 @@ button:disabled {
     box-shadow: 0 0 15px #ff0000;
   }
 }
-/* ---------------------------------- */
 
 .modal {
   display: none;
@@ -268,14 +292,32 @@ button:disabled {
   color: #d7ccc8;
   font-family: "Rye", serif;
 }
+
+.nivel-1 #top-bar {
+  background-image: url("Gemini_Generated_Image_spmphrspmphrspmp-removebg-preview.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 90%;
+  max-width: 900px;
+  padding: 5vh 5% 6vh 5%;
+  box-sizing: border-box;
+}
+
 .nivel-1 #progress-container {
+  width: 85%;
+  max-width: none;
   border-color: #8d6e63;
-  background: #3e2723;
+  background: #2a160d;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+  height: 30px;
 }
+
 .nivel-1 #progress-fill {
-  background: #d7ccc8;
-  box-shadow: 0 0 10px #d7ccc8;
+  background: #ff9800;
+  box-shadow: 0 0 15px #ff9800;
 }
+
 .nivel-1 #slot-machine {
   background: #5d4037;
   border-color: #3e2723;
@@ -294,14 +336,12 @@ button:disabled {
   border-color: #d7ccc8;
 }
 
-/* CARTEL DE MADERA - SOLO VISIBLE EN NIVEL 1 */
 .nivel-1 #stats {
-  /* ¡Cuidado! Cambia el nombre entre las comillas por el de tu imagen real */
   background-image: url("Gemini_Generated_Image_spmphrspmphrspmp-removebg-preview.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 60px 100px; /* Ajusta estos valores si quieres el cartel más grande o más pequeño */
+  padding: 4vh 80px;
   display: flex;
   justify-content: center;
   align-items: center;

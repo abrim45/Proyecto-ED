@@ -4,6 +4,7 @@ let nivel = 1;
 let expParaNivel = 5000;
 let enMovimiento = false;
 let intervaloHucha = null;
+let timeoutMensaje = null; // Variable para controlar el tiempo del mensaje
 
 const mejoras = {
   suerte: { nivel: 0, costeBase: 150, mult: 1.5, actual: 150 },
@@ -37,7 +38,7 @@ const domElements = {
   btnSpin: document.getElementById("btn-spin"),
   btnShop: document.getElementById("btn-open-shop"),
   closeShop: document.getElementById("close-shop"),
-  badge: document.getElementById("shop-badge"), // Elemento de notificación
+  badge: document.getElementById("shop-badge"),
 };
 
 function actualizarInterfaz() {
@@ -82,7 +83,6 @@ function actualizarInterfaz() {
   document.getElementById("btn-buy-base").disabled =
     fichas < mejoras.base.actual;
 
-  // Lógica para mostrar/ocultar la notificación roja
   let puedeComprarAlgo = false;
   for (let key in mejoras) {
     if (fichas >= mejoras[key].actual) {
@@ -134,7 +134,7 @@ function verificarSubidaNivel() {
 
     document.body.className = `nivel-${nivel}`;
     domElements.nivelNombre.innerText = datosNivel[nivel].nombre;
-    domElements.mensaje.innerText = `¡NUEVO NIVEL DESBLOQUEADO!`;
+    mostrarMensajePremio(`¡NIVEL ${nivel}!`);
 
     domElements.modal.style.display = "none";
     actualizarInterfaz();
@@ -147,7 +147,6 @@ function animarRodillo(id, duracion, simboloFinal) {
     const simbolos = datosNivel[nivel].simbolos;
     rodillo.classList.add("spinning");
 
-    // El intervalo baja a 50ms para que se vea más rápido el giro
     let cambiador = setInterval(() => {
       rodillo.innerText = simbolos[Math.floor(Math.random() * simbolos.length)];
     }, 50);
@@ -165,7 +164,9 @@ async function iniciarTirada() {
   if (enMovimiento) return;
   enMovimiento = true;
   domElements.btnSpin.disabled = true;
-  domElements.mensaje.innerText = "Girando...";
+
+  // Ocultamos si había un mensaje previo
+  domElements.mensaje.classList.remove("show");
 
   const simbolos = datosNivel[nivel].simbolos;
   let s1 = simbolos[Math.floor(Math.random() * simbolos.length)];
@@ -176,7 +177,6 @@ async function iniciarTirada() {
   if (Math.random() < chanceMejora) s2 = s1;
   if (s1 === s2 && Math.random() < chanceMejora * 0.5) s3 = s1;
 
-  // Tiempos reducidos para un dinamismo mayor (400ms, 800ms, 1200ms)
   await animarRodillo("reel1", 400, s1);
   await animarRodillo("reel2", 800, s2);
   await animarRodillo("reel3", 1200, s3);
@@ -191,13 +191,14 @@ function calcularPremios(s1, s2, s3) {
   if (s1 === s2 && s2 === s3) {
     let multiJackpot = 10 * (1 + mejoras.jackpot.nivel * 0.8);
     ganancias = base * multiJackpot;
-    domElements.mensaje.innerText = `¡GRAN JACKPOT! +${Math.floor(ganancias)}`;
+    mostrarMensajePremio(`¡JACKPOT!\n+${Math.floor(ganancias)}`);
   } else if (s1 === s2 || s2 === s3 || s1 === s3) {
     let multiMini = 2 * (1 + mejoras.mini.nivel * 0.5);
     ganancias = base * multiMini;
-    domElements.mensaje.innerText = `¡Mini Premio! +${Math.floor(ganancias)}`;
+    mostrarMensajePremio(`¡Mini!\n+${Math.floor(ganancias)}`);
   } else {
-    domElements.mensaje.innerText = "Mala suerte...";
+    // Si no hay premio, quitamos el mensaje
+    domElements.mensaje.classList.remove("show");
   }
 
   fichas += ganancias;
@@ -207,6 +208,20 @@ function calcularPremios(s1, s2, s3) {
 
   verificarSubidaNivel();
   actualizarInterfaz();
+}
+
+// Nueva función para manejar la aparición y desaparición de los mensajes
+function mostrarMensajePremio(texto) {
+  domElements.mensaje.innerText = texto;
+  domElements.mensaje.classList.add("show");
+
+  // Limpiamos el temporizador anterior por si el jugador tira muy rápido
+  if (timeoutMensaje) clearTimeout(timeoutMensaje);
+
+  // Programamos que desaparezca tras 2 segundos (2000 ms)
+  timeoutMensaje = setTimeout(() => {
+    domElements.mensaje.classList.remove("show");
+  }, 2000);
 }
 
 domElements.btnSpin.addEventListener("click", iniciarTirada);
