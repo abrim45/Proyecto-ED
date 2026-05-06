@@ -1,54 +1,384 @@
-body,
-html {
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rye&family=Orbitron:wght@700&display=swap");
+
+body {
   margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #000;
-}
-
-.slot-container {
-  position: relative;
-  width: 100vw;
+  transition: all 1s ease-in-out;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.slot-bg {
-  width: 100%;
+#top-bar {
+  padding: 20px;
+  text-align: center;
+  z-index: 10;
+}
+
+#level-name {
+  margin: 0 0 15px 0;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#progress-container {
+  width: 80%;
+  max-width: 800px;
+  height: 25px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 4px solid;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+#progress-fill {
   height: 100%;
-  object-fit: fill;
-  display: block;
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn {
-  position: absolute;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+#game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Modificado para soportar el cartel */
+#stats {
+  margin-bottom: 30px;
+}
+
+#stats h2 {
+  font-size: 2.5rem;
+  margin: 0; /* Quitamos el margen para que el texto se centre bien dentro del cartel */
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+#slot-machine {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+  border-radius: 20px;
+  border: 8px solid;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.reel-container {
+  background: #fff;
+  border-radius: 10px;
+  border: 4px solid #111;
+  overflow: hidden;
+  height: 160px;
+  width: 120px;
+  box-shadow:
+    inset 0 15px 15px -10px rgba(0, 0, 0, 0.5),
+    inset 0 -15px 15px -10px rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: transparent;
 }
 
-#btn-ajustes {
-  top: 76.5%;
-  left: 12%;
-  width: 9%;
-  height: 10%;
+.reel {
+  font-size: 80px;
+  user-select: none;
+  transform: translateY(0);
 }
 
-#btn-tienda {
-  top: 76.5%;
-  left: 75%;
-  width: 10%;
-  height: 10%;
+.spinning {
+  animation: spin-blur 0.1s linear infinite;
+  filter: blur(2px);
 }
 
-#btn-tirar {
-  top: 76.5%;
-  left: 43%;
-  width: 14%;
-  height: 10%;
+@keyframes spin-blur {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(50%);
+  }
+}
+
+#message {
+  font-size: 1.8rem;
+  font-weight: bold;
+  height: 40px;
+  margin: 30px 0;
+  text-align: center;
+}
+
+#controls {
+  display: flex;
+  gap: 30px;
+}
+
+button {
+  padding: 20px 40px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  border: 4px solid;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:disabled {
+  filter: grayscale(100%);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- ESTILOS DE LA NOTIFICACIÓN --- */
+#btn-open-shop {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: #ff3333;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 0 15px #ff0000;
+  border: 3px solid white;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff0000;
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px #ff0000;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff0000;
+  }
+}
+/* ---------------------------------- */
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: #222;
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  border: 4px solid #fff;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#close-shop {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 40px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+#close-shop:hover {
+  color: #fff;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.shop-btn {
+  background: #333;
+  color: #fff;
+  border: 2px solid #555;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  text-align: left;
+}
+
+.shop-btn:hover:not(:disabled) {
+  background: #444;
+  border-color: #fff;
+}
+
+.shop-title {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #ffd700;
+}
+.shop-desc {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 15px;
+  text-transform: none;
+}
+.shop-cost {
+  font-size: 1.1rem;
+  color: #4caf50;
+}
+
+/* --- Temas de niveles --- */
+
+/* NIVEL 1 */
+.nivel-1 {
+  background: linear-gradient(135deg, #5c4033, #3e2723);
+  color: #d7ccc8;
+  font-family: "Rye", serif;
+}
+.nivel-1 #progress-container {
+  border-color: #8d6e63;
+  background: #3e2723;
+}
+.nivel-1 #progress-fill {
+  background: #d7ccc8;
+  box-shadow: 0 0 10px #d7ccc8;
+}
+.nivel-1 #slot-machine {
+  background: #5d4037;
+  border-color: #3e2723;
+}
+.nivel-1 .reel-container {
+  background: #efebe9;
+}
+.nivel-1 .btn-primary {
+  background: #8d6e63;
+  color: #fff;
+  border-color: #3e2723;
+}
+.nivel-1 .btn-secondary {
+  background: #5d4037;
+  color: #fff;
+  border-color: #d7ccc8;
+}
+
+/* CARTEL DE MADERA - SOLO VISIBLE EN NIVEL 1 */
+.nivel-1 #stats {
+  /* ¡Cuidado! Cambia el nombre entre las comillas por el de tu imagen real */
+  background-image: url("Gemini_Generated_Image_spmphrspmphrspmp-removebg-preview.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 100px; /* Ajusta estos valores si quieres el cartel más grande o más pequeño */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* NIVEL 2 */
+.nivel-2 {
+  background: radial-gradient(circle, #800000, #3e0000);
+  color: #ffd700;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-weight: bold;
+}
+.nivel-2 #progress-container {
+  border-color: #ffd700;
+  background: #220000;
+}
+.nivel-2 #progress-fill {
+  background: #ffd700;
+  box-shadow: 0 0 20px #ffd700;
+}
+.nivel-2 #slot-machine {
+  background: #b71c1c;
+  border-color: #ffd700;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+}
+.nivel-2 .reel-container {
+  background: #fffde7;
+  border-color: #ffd700;
+}
+.nivel-2 .btn-primary {
+  background: #ffd700;
+  color: #800000;
+  border-color: #fff;
+}
+.nivel-2 .btn-secondary {
+  background: #222;
+  color: #ffd700;
+  border-color: #ffd700;
+}
+
+/* NIVEL 3 */
+.nivel-3 {
+  background: linear-gradient(to bottom, #0b0c10, #1f2833);
+  color: #66fcf1;
+  font-family: "Orbitron", sans-serif;
+}
+.nivel-3 #progress-container {
+  border-color: #45a29e;
+  background: #0b0c10;
+}
+.nivel-3 #progress-fill {
+  background: #66fcf1;
+  box-shadow: 0 0 20px #66fcf1;
+}
+.nivel-3 #slot-machine {
+  background: #1f2833;
+  border-color: #66fcf1;
+  box-shadow: 0 0 50px rgba(102, 252, 241, 0.3);
+}
+.nivel-3 .reel-container {
+  background: #0b0c10;
+  border-color: #45a29e;
+  color: #66fcf1;
+  text-shadow: 0 0 10px #66fcf1;
+}
+.nivel-3 .btn-primary {
+  background: #45a29e;
+  color: #0b0c10;
+  border-color: #66fcf1;
+  text-shadow: none;
+}
+.nivel-3 .btn-secondary {
+  background: transparent;
+  color: #66fcf1;
+  border-color: #45a29e;
+}
+.nivel-3 .modal-content {
+  border-color: #66fcf1;
+  box-shadow: 0 0 30px rgba(102, 252, 241, 0.2);
 }

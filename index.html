@@ -3,16 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LA SOÑADORA</title>
+    <title>Slot Clicker</title>
     <link rel="stylesheet" href="css.css" />
   </head>
-  <body>
-    <div class="slot-container">
-      <img src="SLOT.png" alt="Máquina tragaperras de fondo" class="slot-bg" />
-
-      <button id="btn-ajustes" class="btn"></button>
-      <button id="btn-tienda" class="btn"></button>
-      <button id="btn-tirar" class="btn"></button>
+  <body class="nivel-1">
+    <div id="top-bar">
+      <h1 id="level-name">Tasca de Barrio</h1>
+      <div id="progress-container">
+        <div id="progress-fill"></div>
+      </div>
     </div>
+
+    <div id="game-container">
+      <div id="stats">
+        <h2>Fichas: <span id="fichas-display">0</span></h2>
+      </div>
+
+      <div id="slot-machine">
+        <div class="reel-container"><div class="reel" id="reel1">🍒</div></div>
+        <div class="reel-container"><div class="reel" id="reel2">🍋</div></div>
+        <div class="reel-container"><div class="reel" id="reel3">🍇</div></div>
+      </div>
+
+      <div id="message">¡Prueba tu suerte!</div>
+
+      <div id="controls">
+        <button id="btn-spin" class="btn-primary">TIRAR</button>
+        <button id="btn-open-shop" class="btn-secondary">
+          TIENDA
+          <span id="shop-badge" class="badge">!</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="shop-modal" class="modal">
+      <div class="modal-content">
+        <span id="close-shop">&times;</span>
+        <h2>Mercado Negro</h2>
+        <div class="shop-grid">
+          <button class="shop-btn" id="btn-buy-luck">
+            <div class="shop-title">
+              Trébol Suerte <span id="lvl-luck">nv.0</span>
+            </div>
+            <div class="shop-desc">+Probabilidad de premios</div>
+            <div class="shop-cost"><span id="cost-luck">150</span> Fichas</div>
+          </button>
+          <button class="shop-btn" id="btn-buy-jackpot">
+            <div class="shop-title">
+              Multiplicador VIP <span id="lvl-jackpot">nv.0</span>
+            </div>
+            <div class="shop-desc">+Valor de los Jackpots</div>
+            <div class="shop-cost">
+              <span id="cost-jackpot">300</span> Fichas
+            </div>
+          </button>
+          <button class="shop-btn" id="btn-buy-mini">
+            <div class="shop-title">
+              Consuelo de Tontos <span id="lvl-mini">nv.0</span>
+            </div>
+            <div class="shop-desc">+Valor de mini premios</div>
+            <div class="shop-cost"><span id="cost-mini">200</span> Fichas</div>
+          </button>
+          <button class="shop-btn" id="btn-buy-passive">
+            <div class="shop-title">
+              Hucha Clandestina <span id="lvl-passive">nv.0</span>
+            </div>
+            <div class="shop-desc">Fichas automáticas por segundo</div>
+            <div class="shop-cost">
+              <span id="cost-passive">400</span> Fichas
+            </div>
+          </button>
+          <button class="shop-btn" id="btn-buy-base">
+            <div class="shop-title">
+              Apuesta Temeraria <span id="lvl-base">nv.0</span>
+            </div>
+            <div class="shop-desc">Aumenta la ganancia base general</div>
+            <div class="shop-cost"><span id="cost-base">1000</span> Fichas</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
