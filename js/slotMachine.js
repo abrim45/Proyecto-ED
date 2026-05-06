@@ -116,9 +116,19 @@ class Rodillo {
      */
     girar(config = {}) {
         const duracionBaseSegundos = config.duracionBase ?? DURACION_BASE_GIRO;
+        const simboloForzado = config.simboloForzado ?? null;
 
         return new Promise((resolve) => {
-            const indiceSimboloDestino = Math.floor(Math.random() * SIMBOLOS.length);
+            let indiceSimboloDestino = Math.floor(Math.random() * SIMBOLOS.length);
+            
+            // Si nos pasan un símbolo forzado, lo buscamos
+            if (simboloForzado) {
+                const indiceForzado = SIMBOLOS.findIndex(s => s.id === simboloForzado);
+                if (indiceForzado !== -1) {
+                    indiceSimboloDestino = indiceForzado;
+                }
+            }
+
             const vueltasCompletas = SIMBOLOS.length * VUELTAS_INERCIA;
             const diferenciaPosicion = indiceSimboloDestino - (this.indicePosicion % SIMBOLOS.length);
             const saltosTotales = vueltasCompletas + diferenciaPosicion;

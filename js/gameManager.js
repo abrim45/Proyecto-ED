@@ -111,7 +111,29 @@ class GameManager {
         this.economia.realizarApuesta();
         this._actualizarUI();
 
-        const res = await Promise.all(this.rodillos.map(r => r.girar({duracionBase: this.velocidadGiro})));
+        let simboloForzado = null;
+        let rodillosAForzar = 0;
+        
+        // Si bonusSuerte es mayor que 0, calculamos si interviene la suerte (1 punto = 1% extra de forzar victoria)
+        // Por defecto, damos un 5% de base de sacar algo forzado para que toque más de normal.
+        const probabilidadForzar = 5 + this.bonusSuerte;
+        
+        if (Math.random() * 100 < probabilidadForzar) {
+            const indexAleatorio = Math.floor(Math.random() * SIMBOLOS.length);
+            simboloForzado = SIMBOLOS[indexAleatorio].id;
+            // 70% de alinear los 3, 30% de alinear 2
+            rodillosAForzar = Math.random() < 0.7 ? 3 : 2;
+        }
+
+        const promesasRodillos = this.rodillos.map((r, index) => {
+            const configGiro = { duracionBase: this.velocidadGiro };
+            if (simboloForzado && index < rodillosAForzar) {
+                configGiro.simboloForzado = simboloForzado;
+            }
+            return r.girar(configGiro);
+        });
+
+        const res = await Promise.all(promesasRodillos);
         const premio = this.economia.calcularPremio(res);
 
         if (premio.coincidencias >= 3 && this.multiplicadorJackpot > 1)

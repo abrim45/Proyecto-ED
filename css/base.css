@@ -134,70 +134,43 @@ body {
     padding-right: 4px;
 }
 
-/* ═══ LA MÁQUINA ═══ */
+/* ═══ LA MÁQUINA (Estética SLOT.png - Cel-Shading) ═══ */
 .maquina {
     position: relative;
     width: 100%;
-    max-width: 90vh;
-    height: 100%;
-    max-height: calc(100vh - 100px);
-    background:
-        radial-gradient(ellipse at 25% 15%, rgba(100,60,15,0.5) 0%, transparent 40%),
-        radial-gradient(ellipse at 75% 25%, rgba(80,50,10,0.4) 0%, transparent 35%),
-        radial-gradient(ellipse at 20% 70%, rgba(60,35,8,0.5) 0%, transparent 45%),
-        radial-gradient(ellipse at 80% 65%, rgba(90,55,12,0.4) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 90%, rgba(50,30,5,0.3) 0%, transparent 50%),
-        linear-gradient(180deg, var(--maquina-primario) 0%, var(--maquina-secundario) 50%, var(--maquina-borde) 100%);
-    border-radius: 12px;
-    border: 3px solid var(--maquina-borde);
-    box-shadow:
-        inset 0 0 40px rgba(0,0,0,0.7),
-        inset 0 2px 0 rgba(255,255,255,0.06),
-        0 15px 50px rgba(0,0,0,0.9),
-        0 0 20px rgba(0,0,0,0.5);
+    max-width: 85vh; /* Más cuadrada */
+    aspect-ratio: 1 / 1.1; /* Proporción parecida a la imagen */
+    background: linear-gradient(180deg, #c49a5b 0%, #a26d3f 50%, #754425 100%);
+    border-radius: 6px;
+    border: 6px solid #1a1005; /* Borde grueso estilo cómic */
+    box-shadow: 
+        inset 0 0 40px rgba(46, 28, 12, 0.8), /* Sombra interior simulando óxido/suciedad */
+        0 20px 40px rgba(0,0,0,0.9);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: background 1s ease, border-color 1s ease;
 }
 
-/* Manchas de óxido */
+/* Base/Mesa inclinada falsa al fondo */
 .maquina::before {
     content:"";
-    position:absolute; inset:0;
-    background:
-        radial-gradient(circle at 8% 12%, rgba(80,40,5,0.6) 0%, transparent 12%),
-        radial-gradient(circle at 92% 8%, rgba(70,35,5,0.5) 0%, transparent 10%),
-        radial-gradient(circle at 5% 55%, rgba(60,30,5,0.5) 0%, transparent 15%),
-        radial-gradient(circle at 95% 50%, rgba(65,35,5,0.45) 0%, transparent 12%),
-        radial-gradient(circle at 12% 88%, rgba(50,25,5,0.4) 0%, transparent 18%),
-        radial-gradient(circle at 88% 85%, rgba(55,28,5,0.35) 0%, transparent 14%),
-        radial-gradient(circle at 50% 3%, rgba(70,40,8,0.25) 0%, transparent 20%);
-    pointer-events:none; z-index:1; border-radius:8px;
-    transition: opacity 1s ease;
-}
-/* Grietas/arañazos */
-.maquina::after {
-    content:"";
-    position:absolute; inset:0;
-    background:
-        linear-gradient(25deg, transparent 49.5%, rgba(0,0,0,0.08) 49.5%, rgba(0,0,0,0.08) 50.5%, transparent 50.5%),
-        linear-gradient(-35deg, transparent 49.5%, rgba(0,0,0,0.06) 49.5%, rgba(0,0,0,0.06) 50.5%, transparent 50.5%),
-        linear-gradient(65deg, transparent 49.5%, rgba(255,255,255,0.02) 49.5%, rgba(255,255,255,0.02) 50.5%, transparent 50.5%);
-    pointer-events:none; z-index:1; border-radius:8px;
-    transition: opacity 1s ease;
+    position:absolute; bottom:0; left:0; right:0; height: 30%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+    pointer-events:none; z-index:0;
 }
 
 .maquina-borde-izq, .maquina-borde-der {
-    position:absolute; top:0; bottom:0; width:20px; z-index:2; pointer-events:none;
+    position:absolute; top:0; bottom:0; width:30px; z-index:2; pointer-events:none;
 }
 .maquina-borde-izq {
     left:0;
-    background: linear-gradient(90deg, rgba(20,12,4,0.85) 0%, rgba(80,55,20,0.3) 50%, transparent 100%);
+    border-right: 4px solid rgba(26, 16, 5, 0.4);
+    background: linear-gradient(90deg, rgba(20,12,4,0.6) 0%, transparent 100%);
 }
 .maquina-borde-der {
     right:0;
-    background: linear-gradient(-90deg, rgba(20,12,4,0.85) 0%, rgba(80,55,20,0.3) 50%, transparent 100%);
+    border-left: 4px solid rgba(26, 16, 5, 0.4);
+    background: linear-gradient(-90deg, rgba(20,12,4,0.6) 0%, transparent 100%);
 }
 
 /* ═══ LCD ═══ */
@@ -225,11 +198,15 @@ body {
 }
 
 .lcd {
-    width:68%; aspect-ratio:3/1; background:var(--lcd-fondo);
-    border-radius:5px; border:3px solid #1a1208;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.6), 0 0 10px rgba(34, 204, 68, 0.1);
+    width:75%; aspect-ratio:3.5/1; background: #263b4d; /* Azul oscuro como en SLOT.png */
+    border-radius:4px; 
+    border:5px solid #2e1c0c; /* Borde de óxido grueso */
+    box-shadow: 
+        0 0 0 3px #1a1005, /* Doble borde exterior */
+        inset 0 0 20px rgba(0,0,0,0.9), 
+        inset 0 5px 10px rgba(0,0,0,0.8);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:1px; position:relative; overflow:hidden; transition:background 1s, border-color 1s, box-shadow 1s;
+    gap:2px; position:relative; overflow:hidden;
 }
 .lcd-cristal {
     position:absolute; inset:0;
@@ -248,37 +225,56 @@ body {
     color:#fff; text-shadow:0 0 8px var(--lcd-brillo), 0 0 15px var(--lcd-brillo); min-height:0.8em; z-index:1;
 }
 
-/* ═══ RODILLOS ═══ */
+/* ═══ RODILLOS (Estilo SLOT.png) ═══ */
 .maquina-centro {
-    display:flex; justify-content:center; gap:clamp(8px,2vw,20px);
+    display:flex; justify-content:center; gap:clamp(10px,2.5vw,25px);
     padding:10px 32px 16px; z-index:3; flex:1; min-height:0;
 }
 .rodillo-marco {
-    flex:1; max-width:240px;
-    background:
-        radial-gradient(ellipse at 50% 30%, rgba(80,60,30,0.5) 0%, transparent 60%),
-        linear-gradient(180deg, #4a3820 0%, #3a2a14 100%);
-    border-radius:8px; border:2px solid rgba(0,0,0,0.8);
-    box-shadow: inset 0 2px 3px rgba(255,255,255,0.1), inset 0 -2px 5px rgba(0,0,0,0.6), 0 5px 15px rgba(0,0,0,0.7);
-    padding:8px 6px; display:flex; position:relative;
-}
-.rodillo-marco::before {
-    content:""; position:absolute; inset:0; border-radius:6px;
-    background:
-        radial-gradient(circle at 5% 5%, rgba(25,12,3,0.5) 0%, transparent 28%),
-        radial-gradient(circle at 95% 5%, rgba(25,12,3,0.4) 0%, transparent 22%),
-        radial-gradient(circle at 5% 95%, rgba(25,12,3,0.4) 0%, transparent 22%),
-        radial-gradient(circle at 95% 95%, rgba(25,12,3,0.5) 0%, transparent 28%);
-    pointer-events:none; z-index:1;
+    flex:1; max-width:260px;
+    background: transparent;
+    border-radius:12px; 
+    border:8px solid #2e1c0c; /* Borde oscuro grueso (Cel-shading) */
+    box-shadow: 
+        0 0 0 4px #1a1005, /* Borde negro exterior */
+        inset 0 15px 20px rgba(0,0,0,0.8), /* Profundidad masiva */
+        inset 0 -15px 20px rgba(0,0,0,0.8);
+    padding: 0; display:flex; position:relative;
+    overflow: hidden;
 }
 
-/* ═══ BASE ═══ */
+.rodillo-ventana {
+    width:100%; height:100%; overflow:hidden; position:relative;
+    background: #dfd1b8; /* Color pergamino sucio */
+    box-shadow: inset 0 0 30px rgba(100, 60, 20, 0.4);
+}
+.rodillo-ventana::after {
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.7) 100%);
+    pointer-events:none; z-index:2;
+}
+.tira-simbolos {
+    display:flex; flex-direction:column; width:100%;
+    /* margin-top y padding-bottom compensan para centrar el símbolo */
+    margin-top: calc(50% - (var(--size) / 2));
+    padding-bottom: calc(50% - (var(--size) / 2));
+}
+.simbolo {
+    height:var(--size); display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; position:relative;
+}
+.simbolo-img {
+    height: 80%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); /* Sombra dibujada suave */
+}
+
+/* ═══ BASE y BOTONES (Estilo SLOT.png) ═══ */
 .maquina-base {
-    background:
-        radial-gradient(ellipse at 30% 40%, rgba(140,130,115,0.25) 0%, transparent 50%),
-        linear-gradient(180deg, #4a4540 0%, #6b6660 40%, #7a756c 100%);
-    padding:14px 32px 18px; z-index:3; border-top:2px solid rgba(0,0,0,0.5); position:relative;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
+    background: #6a482b; /* Marrón más oscuro para la base inclinada */
+    border-top: 6px solid #1a1005; 
+    padding:14px 32px 18px; z-index:3; position:relative;
+    box-shadow: inset 0 20px 20px rgba(0,0,0,0.4);
 }
 .maquina-base::before {
     content:""; position:absolute; inset:0;
@@ -289,45 +285,38 @@ body {
 }
 .base-botones { display:flex; align-items:center; gap:clamp(8px,2vw,18px); justify-content:center; }
 
-/* Botones 3D */
+/* Botones estilo SLOT.png */
 .btn-fisico {
-    width:clamp(44px,8vw,68px); height:clamp(34px,6.5vw,52px);
-    border:none; border-radius:5px; cursor:pointer; position:relative;
-    transition:all 0.08s; font-family:var(--fuente-display); font-size:clamp(0.4rem,1vw,0.6rem); outline:none;
+    width:clamp(48px,9vw,80px); height:clamp(38px,7.5vw,60px);
+    border: 4px solid #1a1005; border-radius:8px; cursor:pointer; position:relative;
+    transition:transform 0.1s; font-family:var(--fuente-display); font-size:clamp(0.5rem,1.2vw,0.7rem); outline:none;
+    box-shadow: 0 6px 0 #1a1005, 0 10px 15px rgba(0,0,0,0.6);
 }
 .btn-fisico-cara {
     display:flex; align-items:center; justify-content:center; width:100%; height:100%;
-    border-radius:3px; z-index:1; text-shadow:0 1px 1px rgba(0,0,0,0.3);
+    border-radius:4px; z-index:1; 
 }
 .btn-amarillo {
-    background:linear-gradient(180deg, #8a7220, #5c4a10);
-    box-shadow: 0 4px 0 #4a3a0a, 0 8px 10px rgba(0,0,0,0.6);
+    background: #d4a539;
 }
 .btn-amarillo .btn-fisico-cara {
-    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.2) 0%, transparent 50%),
-        linear-gradient(180deg, #d4b442, #b89a30 60%, #8a7220);
-    color:#2e1f0a; border:1px solid rgba(0,0,0,0.4);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -2px 3px rgba(0,0,0,0.2);
+    color:#2e1f0a; 
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -4px 0 rgba(0,0,0,0.2);
 }
-.btn-amarillo:hover {
-    filter: brightness(1.1);
-}
-.btn-amarillo:active { box-shadow:0 1px 0 #4a3a0a, 0 2px 4px rgba(0,0,0,0.5); transform:translateY(3px); }
+.btn-amarillo:active { transform:translateY(6px); box-shadow: 0 0px 0 #1a1005, 0 2px 4px rgba(0,0,0,0.5); }
 
 .btn-rojo {
-    background:linear-gradient(180deg, #6a2828, #3a1515);
-    box-shadow:0 4px 0 #2a0f0f, 0 8px 10px rgba(0,0,0,0.6);
-    margin-left:clamp(8px,3vw,30px);
+    background: #a93c34;
+    width:clamp(60px,11vw,100px); /* Botón PULL más grande */
+    margin-left:clamp(12px,4vw,40px);
 }
 .btn-rojo .btn-fisico-cara {
-    background: radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.15) 0%, transparent 50%),
-        linear-gradient(180deg, #a84444, #8b3a3a 60%, #6a2828);
-    color:#0e0404; border:1px solid rgba(0,0,0,0.5);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -2px 3px rgba(0,0,0,0.3);
+    color:#1a0808; 
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -4px 0 rgba(0,0,0,0.3);
 }
-.btn-rojo:hover { filter: brightness(1.1); }
-.btn-rojo:active { box-shadow:0 1px 0 #2a0f0f, 0 2px 4px rgba(0,0,0,0.5); transform:translateY(3px); }
-.btn-fisico:disabled { opacity:0.4; cursor:not-allowed; filter:grayscale(0.5); }
+.btn-rojo:active { transform:translateY(6px); box-shadow: 0 0px 0 #1a1005, 0 2px 4px rgba(0,0,0,0.5); }
+
+.btn-fisico:disabled { opacity:0.6; cursor:not-allowed; filter:grayscale(0.5); transform:translateY(6px); box-shadow: 0 0px 0 #1a1005; }
 
 .base-apuesta { display:flex; flex-direction:column; align-items:center; margin-top:6px; }
 .apuesta-label { font-family:var(--fuente-display); font-size:clamp(0.3rem,0.5vw,0.4rem); color:var(--color-texto-dim); letter-spacing:2px; }
