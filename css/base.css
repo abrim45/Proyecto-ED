@@ -43,7 +43,7 @@ body {
 /* ═══ AMBIENT ═══ */
 .vignette-overlay {
     position:fixed; inset:0; pointer-events:none; z-index:50;
-    background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0,0,0,0.5) 100%);
 }
 .ambient-dust { position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
 .dust-mote {
@@ -125,7 +125,8 @@ body {
     overflow-y:auto; overflow-x:hidden; padding-right:4px;
 }
 .machine-wrapper {
-    width:100%; max-width:85vh; aspect-ratio: 10/11;
+    width:100%; max-width: min(90vh, 95%);
+    aspect-ratio: 10/8; /* Wider like SLOT.png */
     display:flex; align-items:center; justify-content:center;
 }
 
@@ -228,18 +229,19 @@ body {
 
 /* ═══ REELS ═══ */
 .reels-area {
-    display:flex; justify-content:center; gap:clamp(10px,2.5vw,22px);
-    padding:8px 40px 12px; z-index:3; flex:1; min-height:0;
+    display:flex; justify-content:center; gap:clamp(8px,2vw,18px);
+    padding:6px 50px 10px; z-index:3; flex:1; min-height:0;
+    align-items:stretch;
 }
 .reel-frame {
-    flex:1; max-width:260px; position:relative; display:flex;
+    flex:1; max-width:280px; position:relative; display:flex;
     background: linear-gradient(180deg, #5a3c1a 0%, #4a2e12 50%, #3a2008 100%);
-    border-radius:10px; border:6px solid #2a1808;
+    border-radius:12px; border:7px solid #2a1808;
     box-shadow:
         0 0 0 3px var(--outline),
         inset 0 3px 0 rgba(255,255,255,0.06),
-        0 8px 20px rgba(0,0,0,0.7);
-    padding:6px; overflow:hidden;
+        0 8px 25px rgba(0,0,0,0.7);
+    padding:5px; overflow:hidden;
 }
 
 /* ═══ CONTROL PANEL ═══ */

@@ -1,38 +1,44 @@
 /**
- * Slot Machine Reels — GOTY Edition
- * Deep 3D reel windows with parchment background
- * @version 5.0
+ * Slot Machine Reels — GOTY Edition v4
+ * @version 5.3
  */
 
 /* ── Reel window ── */
 .reel-window {
     flex:1; height:100%; overflow:hidden; position:relative;
-    background:
-        radial-gradient(ellipse at 50% 80%, rgba(120,100,70,0.2) 0%, transparent 60%),
-        linear-gradient(180deg, #c0b898 0%, #d8d0b8 20%, #e8e0cc 50%, #d8d0b8 80%, #c0b898 100%);
-    border-radius:6px; border:3px solid rgba(30,18,5,0.7);
+    background: #e8e0cc;
+    border-radius:8px; border:3px solid rgba(30,18,5,0.8);
     box-shadow:
-        inset 0 12px 25px rgba(0,0,0,0.5),
-        inset 0 -12px 25px rgba(0,0,0,0.4),
+        inset 0 15px 30px rgba(0,0,0,0.5),
+        inset 0 -15px 30px rgba(0,0,0,0.4),
         inset 6px 0 12px rgba(0,0,0,0.2),
         inset -6px 0 12px rgba(0,0,0,0.2);
 }
 
-/* Cylinder curvature shadow */
+/* Mask everything except center — color matched to #e8e0cc */
 .reel-window::before {
     content:""; position:absolute; inset:0;
     background: linear-gradient(180deg,
-        rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 12%,
-        transparent 25%, transparent 75%,
-        rgba(0,0,0,0.1) 88%, rgba(0,0,0,0.45) 100%);
+        #e8e0cc 0%,
+        #e8e0cc 20%,
+        rgba(232,224,204,0.9) 28%,
+        rgba(232,224,204,0.3) 35%,
+        transparent 42%,
+        transparent 58%,
+        rgba(232,224,204,0.3) 65%,
+        rgba(232,224,204,0.9) 72%,
+        #e8e0cc 80%,
+        #e8e0cc 100%);
     pointer-events:none; z-index:3;
 }
 
-/* Subtle top glare */
+/* Depth shadow at very top and bottom */
 .reel-window::after {
-    content:""; position:absolute; top:0; left:0; right:0; height:35%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
-    pointer-events:none; z-index:4;
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg,
+        rgba(0,0,0,0.2) 0%, transparent 8%,
+        transparent 92%, rgba(0,0,0,0.15) 100%);
+    pointer-events:none; z-index:5;
 }
 
 /* ── Symbol strip ── */
@@ -46,12 +52,14 @@
 .simbolo {
     width:100%; height:var(--size);
     display:flex; justify-content:center; align-items:center;
-    user-select:none; padding:10%; flex-shrink:0;
+    user-select:none; flex-shrink:0;
 }
 
 /* ── Symbol image ── */
 .simbolo-img {
-    width:85%; height:85%; object-fit:contain;
-    filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.45));
+    width:68%; height:68%; object-fit:contain;
+    filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.35));
     user-select:none; pointer-events:none;
+    background: transparent;
+    padding: 3%;
 }
