@@ -1,10 +1,17 @@
 let fichas = 0;
 let exp = 0;
 let nivel = 1;
-let expParaNivel = 5000;
 let enMovimiento = false;
 let intervaloHucha = null;
-let timeoutMensaje = null; // Variable para controlar el tiempo del mensaje
+let timeoutMensaje = null;
+
+const expRequerida = {
+  1: 5000,
+  2: 10000,
+  3: 15000,
+};
+
+let expParaNivel = expRequerida[nivel];
 
 const mejoras = {
   suerte: { nivel: 0, costeBase: 150, mult: 1.5, actual: 150 },
@@ -17,7 +24,7 @@ const mejoras = {
 const datosNivel = {
   1: {
     nombre: "Tasca de Barrio",
-    simbolos: ["🍒", "🍋", "🍇", "🍉", "🔔", "🍺"],
+    simbolos: ["🍒", "🍋", "🍇", "🍉", "🔫", "🍺"],
   },
   2: {
     nombre: "Casino de Las Vegas",
@@ -43,6 +50,7 @@ const domElements = {
 
 function actualizarInterfaz() {
   domElements.fichas.innerText = Math.floor(fichas);
+
   let porcentaje = Math.min((exp / expParaNivel) * 100, 100);
   domElements.progreso.style.width = porcentaje + "%";
 
@@ -111,32 +119,37 @@ function generarPasivo() {
   let ganancia =
     mejoras.passive.nivel * nivel * 5 * (1 + mejoras.base.nivel * 0.5);
   fichas += ganancia;
-  exp += ganancia;
-  verificarSubidaNivel();
+  // Eliminado: exp += ganancia (La pasiva ya no sube la experiencia)
+  // Eliminado: verificarSubidaNivel() (Al no subir exp, no hace falta verificar nivel aquí)
   actualizarInterfaz();
 }
 
 function verificarSubidaNivel() {
-  if (exp >= expParaNivel && nivel < 3) {
-    nivel++;
-    exp = 0;
-    expParaNivel *= 5;
+  if (exp >= expParaNivel) {
+    if (nivel < 3) {
+      nivel++;
+      exp = 0;
+      fichas = 0; // NUEVO: Reiniciamos los puntos (fichas) a cero al subir de nivel
+      expParaNivel = expRequerida[nivel];
 
-    for (let key in mejoras) {
-      mejoras[key].nivel = 0;
-      mejoras[key].actual = mejoras[key].costeBase;
+      for (let key in mejoras) {
+        mejoras[key].nivel = 0;
+        mejoras[key].actual = mejoras[key].costeBase;
+      }
+
+      if (intervaloHucha) {
+        clearInterval(intervaloHucha);
+        intervaloHucha = null;
+      }
+
+      document.body.className = `nivel-${nivel}`;
+      domElements.nivelNombre.innerText = datosNivel[nivel].nombre;
+      mostrarMensajePremio(`¡NIVEL ${nivel}!`);
+
+      domElements.modal.style.display = "none";
+    } else {
+      exp = expParaNivel;
     }
-
-    if (intervaloHucha) {
-      clearInterval(intervaloHucha);
-      intervaloHucha = null;
-    }
-
-    document.body.className = `nivel-${nivel}`;
-    domElements.nivelNombre.innerText = datosNivel[nivel].nombre;
-    mostrarMensajePremio(`¡NIVEL ${nivel}!`);
-
-    domElements.modal.style.display = "none";
     actualizarInterfaz();
   }
 }
@@ -165,7 +178,6 @@ async function iniciarTirada() {
   enMovimiento = true;
   domElements.btnSpin.disabled = true;
 
-  // Ocultamos si había un mensaje previo
   domElements.mensaje.classList.remove("show");
 
   const simbolos = datosNivel[nivel].simbolos;
@@ -197,12 +209,15 @@ function calcularPremios(s1, s2, s3) {
     ganancias = base * multiMini;
     mostrarMensajePremio(`¡Mini!\n+${Math.floor(ganancias)}`);
   } else {
-    // Si no hay premio, quitamos el mensaje
     domElements.mensaje.classList.remove("show");
   }
 
   fichas += ganancias;
-  exp += ganancias;
+
+  if (!(nivel === 3 && exp >= expParaNivel)) {
+    exp += ganancias; // Aquí es el único sitio donde sube la experiencia (progreso)
+  }
+
   enMovimiento = false;
   domElements.btnSpin.disabled = false;
 
@@ -210,15 +225,12 @@ function calcularPremios(s1, s2, s3) {
   actualizarInterfaz();
 }
 
-// Nueva función para manejar la aparición y desaparición de los mensajes
 function mostrarMensajePremio(texto) {
   domElements.mensaje.innerText = texto;
   domElements.mensaje.classList.add("show");
 
-  // Limpiamos el temporizador anterior por si el jugador tira muy rápido
   if (timeoutMensaje) clearTimeout(timeoutMensaje);
 
-  // Programamos que desaparezca tras 2 segundos (2000 ms)
   timeoutMensaje = setTimeout(() => {
     domElements.mensaje.classList.remove("show");
   }, 2000);
@@ -252,5 +264,8 @@ document
 document
   .getElementById("btn-buy-base")
   .addEventListener("click", () => comprarMejora("base"));
+
+document.body.className = `nivel-${nivel}`;
+domElements.nivelNombre.innerText = datosNivel[nivel].nombre;
 
 actualizarInterfaz();
