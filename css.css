@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rye&family=Orbitron:wght@700&display=swap");
 
 body {
+  background-size: cover;
+  background-position: center;
   margin: 0;
   transition: all 1s ease-in-out;
   height: 100vh;
@@ -288,13 +290,16 @@ button:disabled {
 
 /* NIVEL 1 */
 .nivel-1 {
-  background: linear-gradient(135deg, #5c4033, #3e2723);
-  color: #d7ccc8;
+  background-image: url("imagenfondo1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
   font-family: "Rye", serif;
 }
 
 .nivel-1 #top-bar {
-  background-image: url("Gemini_Generated_Image_spmphrspmphrspmp-removebg-preview.png");
+  background-image: url();
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -305,7 +310,7 @@ button:disabled {
 }
 
 .nivel-1 #progress-container {
-  width: 85%;
+  width: 70%;
   max-width: none;
   border-color: #8d6e63;
   background: #2a160d;
@@ -337,7 +342,7 @@ button:disabled {
 }
 
 .nivel-1 #stats {
-  background-image: url("Gemini_Generated_Image_spmphrspmphrspmp-removebg-preview.png");
+  background-image: url();
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -349,12 +354,14 @@ button:disabled {
 
 /* NIVEL 2 */
 .nivel-2 {
-  background: radial-gradient(circle, #800000, #3e0000);
-  color: #ffd700;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  font-weight: bold;
+  background: url("imagenfondo2.png") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #00e5ff;
+  font-family: "Orbitron", sans-serif;
 }
 .nivel-2 #progress-container {
+  width: 70%;
   border-color: #ffd700;
   background: #220000;
 }
@@ -384,41 +391,61 @@ button:disabled {
 
 /* NIVEL 3 */
 .nivel-3 {
-  background: linear-gradient(to bottom, #0b0c10, #1f2833);
-  color: #66fcf1;
+  background: url("imagenfondo3.png") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #00e5ff;
   font-family: "Orbitron", sans-serif;
 }
+
 .nivel-3 #progress-container {
-  border-color: #45a29e;
-  background: #0b0c10;
+  border-color: #ff00ea;
+  background: rgba(13, 14, 27, 0.7);
 }
+
 .nivel-3 #progress-fill {
-  background: #66fcf1;
-  box-shadow: 0 0 20px #66fcf1;
+  background: #00e5ff;
+  box-shadow: 0 0 20px #00e5ff;
 }
 .nivel-3 #slot-machine {
-  background: #1f2833;
-  border-color: #66fcf1;
-  box-shadow: 0 0 50px rgba(102, 252, 241, 0.3);
+  background: rgba(20, 15, 45, 0.85);
+  border-color: #ff00ea;
+  box-shadow: 0 0 50px rgba(255, 0, 234, 0.4);
+  border-radius: 10px;
 }
+
 .nivel-3 .reel-container {
-  background: #0b0c10;
-  border-color: #45a29e;
-  color: #66fcf1;
-  text-shadow: 0 0 10px #66fcf1;
+  background: #0a0b1a;
+  border-color: #00e5ff;
+  color: #ff00ea;
+  text-shadow: 0 0 10px #ff00ea;
 }
+
 .nivel-3 .btn-primary {
-  background: #45a29e;
-  color: #0b0c10;
-  border-color: #66fcf1;
+  background: #ff00ea;
+  color: #0a0b1a;
+  border-color: #00e5ff;
   text-shadow: none;
+  box-shadow: 0 0 15px rgba(255, 0, 234, 0.5);
+  transition: all 0.3s ease;
 }
+
+.nivel-3 .btn-primary:hover {
+  background: #00e5ff;
+  border-color: #ff00ea;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.7);
+}
+
 .nivel-3 .btn-secondary {
-  background: transparent;
-  color: #66fcf1;
-  border-color: #45a29e;
+  background: rgba(10, 11, 26, 0.6);
+  color: #00e5ff;
+  border-color: #b700ff;
+  box-shadow: 0 0 10px rgba(183, 0, 255, 0.3);
 }
+
 .nivel-3 .modal-content {
-  border-color: #66fcf1;
-  box-shadow: 0 0 30px rgba(102, 252, 241, 0.2);
+  background: rgba(13, 14, 27, 0.95);
+  border-color: #00e5ff;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+  color: #fff;
 }
