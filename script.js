@@ -1,6 +1,6 @@
 let fichas = 0;
 let exp = 0;
-let nivel = 1;
+let nivel = 3;
 let enMovimiento = false;
 let intervaloHucha = null;
 let timeoutMensaje = null;
