@@ -1,17 +1,23 @@
+/* Importación de fuentes tipográficas desde Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rye&family=Orbitron:wght@700&display=swap");
 
+/* ==========================================
+   ESTILOS GLOBALES
+   ========================================== */
 body {
   background-size: cover;
   background-position: center;
   margin: 0;
-  transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out; /* Transición suave al cambiar de nivel */
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* Evita barras de desplazamiento innecesarias */
 }
 
-/* --- CONTENEDOR SUPERIOR --- */
+/* ==========================================
+   CONTENEDOR SUPERIOR (Progreso)
+   ========================================== */
 #top-bar {
   text-align: center;
   z-index: 10;
@@ -38,11 +44,13 @@ body {
 
 #progress-fill {
   height: 100%;
-  width: 0%;
+  width: 0%; /* El ancho es controlado dinámicamente por JS */
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- CONTENEDOR PRINCIPAL DEL JUEGO (RESPONSIVE) --- */
+/* ==========================================
+   CONTENEDOR PRINCIPAL DEL JUEGO
+   ========================================== */
 #game-container {
   flex: 1;
   display: flex;
@@ -63,6 +71,9 @@ body {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
+/* ==========================================
+   MÁQUINA TRAGAPERRAS Y RODILLOS
+   ========================================== */
 #slot-machine {
   display: flex;
   gap: 20px;
@@ -96,21 +107,20 @@ body {
   transform: translateY(0);
 }
 
+/* Animación y efecto blur (desenfoque) para el giro de rodillos */
 .spinning {
   animation: spin-blur 0.1s linear infinite;
   filter: blur(2px);
 }
 
 @keyframes spin-blur {
-  0% {
-    transform: translateY(-50%);
-  }
-  100% {
-    transform: translateY(50%);
-  }
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(50%); }
 }
 
-/* --- ESTILOS DEL MENSAJE DIAGONAL --- */
+/* ==========================================
+   ESTILOS DEL MENSAJE DIAGONAL (Premios)
+   ========================================== */
 #message {
   position: absolute;
   bottom: -20px;
@@ -119,7 +129,7 @@ body {
   font-weight: bold;
   text-align: center;
   z-index: 50;
-  pointer-events: none;
+  pointer-events: none; /* Evita que bloquee clics */
 
   color: #ffd700;
   text-shadow:
@@ -134,11 +144,15 @@ body {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Clase para mostrar el mensaje con animación */
 #message.show {
   opacity: 1;
   transform: rotate(-15deg) scale(1.1);
 }
 
+/* ==========================================
+   CONTROLES Y BOTONES
+   ========================================== */
 #controls {
   display: flex;
   gap: 30px;
@@ -167,11 +181,14 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* --- ESTILOS DE LA NOTIFICACIÓN --- */
+/* ==========================================
+   NOTIFICACIÓN DE TIENDA Y MODAL
+   ========================================== */
 #btn-open-shop {
   position: relative;
 }
 
+/* Alerta roja flotante para compras disponibles */
 .badge {
   position: absolute;
   top: -15px;
@@ -192,18 +209,9 @@ button:disabled {
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 15px #ff0000;
-  }
-  50% {
-    transform: scale(1.15);
-    box-shadow: 0 0 25px #ff0000;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 15px #ff0000;
-  }
+  0% { transform: scale(1); box-shadow: 0 0 15px #ff0000; }
+  50% { transform: scale(1.15); box-shadow: 0 0 25px #ff0000; }
+  100% { transform: scale(1); box-shadow: 0 0 15px #ff0000; }
 }
 
 .modal {
@@ -286,9 +294,11 @@ button:disabled {
   color: #4caf50;
 }
 
-/* --- Temas de niveles --- */
+/* ==========================================
+   TEMAS DE NIVELES (Cambiados desde JS)
+   ========================================== */
 
-/* NIVEL 1 */
+/* --- NIVEL 1: Tasca de Barrio --- */
 .nivel-1 {
   background-image: url("imagenfondo1.png");
   background-size: cover;
@@ -297,7 +307,6 @@ button:disabled {
   color: #ffffff;
   font-family: "Rye", serif;
 }
-
 .nivel-1 #top-bar {
   background-image: url();
   background-size: 100% 100%;
@@ -308,39 +317,19 @@ button:disabled {
   padding: 5vh 5% 6vh 5%;
   box-sizing: border-box;
 }
-
 .nivel-1 #progress-container {
-  width: 70%;
+  width: 50%;
   max-width: none;
   border-color: #8d6e63;
   background: #2a160d;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
   height: 30px;
 }
-
-.nivel-1 #progress-fill {
-  background: #ff9800;
-  box-shadow: 0 0 15px #ff9800;
-}
-
-.nivel-1 #slot-machine {
-  background: #5d4037;
-  border-color: #3e2723;
-}
-.nivel-1 .reel-container {
-  background: #efebe9;
-}
-.nivel-1 .btn-primary {
-  background: #8d6e63;
-  color: #fff;
-  border-color: #3e2723;
-}
-.nivel-1 .btn-secondary {
-  background: #5d4037;
-  color: #fff;
-  border-color: #d7ccc8;
-}
-
+.nivel-1 #progress-fill { background: #ff9800; box-shadow: 0 0 15px #ff9800; }
+.nivel-1 #slot-machine { background: #5d4037; border-color: #3e2723; }
+.nivel-1 .reel-container { background: #efebe9; }
+.nivel-1 .btn-primary { background: #8d6e63; color: #fff; border-color: #3e2723; }
+.nivel-1 .btn-secondary { background: #5d4037; color: #fff; border-color: #d7ccc8; }
 .nivel-1 #stats {
   background-image: url();
   background-size: 100% 100%;
@@ -352,7 +341,7 @@ button:disabled {
   align-items: center;
 }
 
-/* NIVEL 2 */
+/* --- NIVEL 2: Casino de Las Vegas --- */
 .nivel-2 {
   background: url("imagenfondo2.png") no-repeat center center;
   background-size: cover;
@@ -361,35 +350,24 @@ button:disabled {
   font-family: "Orbitron", sans-serif;
 }
 .nivel-2 #progress-container {
-  width: 70%;
+  width: 100%;
+  max-width: none;
   border-color: #ffd700;
   background: #220000;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+  height: 30px;
 }
-.nivel-2 #progress-fill {
-  background: #ffd700;
-  box-shadow: 0 0 20px #ffd700;
-}
+.nivel-2 #progress-fill { background: #ffd700; box-shadow: 0 0 20px #ffd700; }
 .nivel-2 #slot-machine {
   background: #b71c1c;
   border-color: #ffd700;
   box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
 }
-.nivel-2 .reel-container {
-  background: #fffde7;
-  border-color: #ffd700;
-}
-.nivel-2 .btn-primary {
-  background: #ffd700;
-  color: #800000;
-  border-color: #fff;
-}
-.nivel-2 .btn-secondary {
-  background: #222;
-  color: #ffd700;
-  border-color: #ffd700;
-}
+.nivel-2 .reel-container { background: #fffde7; border-color: #ffd700; }
+.nivel-2 .btn-primary { background: #ffd700; color: #800000; border-color: #fff; }
+.nivel-2 .btn-secondary { background: #222; color: #ffd700; border-color: #ffd700; }
 
-/* NIVEL 3 */
+/* --- NIVEL 3: Neo-Tokyo Ciberpunk --- */
 .nivel-3 {
   background: url("imagenfondo3.png") no-repeat center center;
   background-size: cover;
@@ -397,30 +375,26 @@ button:disabled {
   color: #00e5ff;
   font-family: "Orbitron", sans-serif;
 }
-
 .nivel-3 #progress-container {
+  width: 100%;
+  max-width: none;
   border-color: #ff00ea;
   background: rgba(13, 14, 27, 0.7);
+  height: 30px;
 }
-
-.nivel-3 #progress-fill {
-  background: #00e5ff;
-  box-shadow: 0 0 20px #00e5ff;
-}
+.nivel-3 #progress-fill { background: #00e5ff; box-shadow: 0 0 20px #00e5ff; }
 .nivel-3 #slot-machine {
   background: rgba(20, 15, 45, 0.85);
   border-color: #ff00ea;
   box-shadow: 0 0 50px rgba(255, 0, 234, 0.4);
   border-radius: 10px;
 }
-
 .nivel-3 .reel-container {
   background: #0a0b1a;
   border-color: #00e5ff;
   color: #ff00ea;
   text-shadow: 0 0 10px #ff00ea;
 }
-
 .nivel-3 .btn-primary {
   background: #ff00ea;
   color: #0a0b1a;
@@ -429,20 +403,17 @@ button:disabled {
   box-shadow: 0 0 15px rgba(255, 0, 234, 0.5);
   transition: all 0.3s ease;
 }
-
 .nivel-3 .btn-primary:hover {
   background: #00e5ff;
   border-color: #ff00ea;
   box-shadow: 0 0 20px rgba(0, 229, 255, 0.7);
 }
-
 .nivel-3 .btn-secondary {
   background: rgba(10, 11, 26, 0.6);
   color: #00e5ff;
   border-color: #b700ff;
   box-shadow: 0 0 10px rgba(183, 0, 255, 0.3);
 }
-
 .nivel-3 .modal-content {
   background: rgba(13, 14, 27, 0.95);
   border-color: #00e5ff;
